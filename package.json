@@ -1,0 +1,32 @@
+{
+  "name": "nehgames",
+  "version": "1.0.0",
+  "description": "THE ONE AND ONLY",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild build/* --bundle --minify --sourcemap --outdir=src",
+    "dev": "concurrently \" esbuild build/* --bundle --minify --sourcemap --outdir=src --watch \" \" nodemon server.js  \"",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenerz/nehgames.git"
+  },
+  "author": "Neh Reh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zenerz/nehgames/issues"
+  },
+  "homepage": "https://github.com/zenerz/nehgames#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "concurrently": "^9.1.2",
+    "ejs": "^3.1.10",
+    "esbuild": "^0.25.1",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  }
+}
