@@ -1,11 +1,10 @@
 FROM node:22.3.0
 
-WORKDIR ./
+WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
-RUN npm install
-RUN npm esbuild build/* --bundle --platform=node --minify --mapsource --outdir=src
+RUN npm i && npm run build
 
 COPY . .
 
