@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../build/index.js"],
-  "sourcesContent": ["console.log('hello');"],
-  "mappings": "MAAA,QAAQ,IAAI,OAAO",
-  "names": []
-}

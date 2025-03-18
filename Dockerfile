@@ -5,7 +5,7 @@ WORKDIR ./
 COPY package*.json ./
 
 RUN npm install
-RUN npm esbuild build/* --bundle --minify --mapsource --outdir=src
+RUN npm esbuild build/* --bundle --platform=node --minify --mapsource --outdir=src
 
 COPY . .
 

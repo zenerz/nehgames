@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild build/* --bundle --minify --sourcemap --outdir=src",
-    "dev": "concurrently \" esbuild build/* --bundle --minify --sourcemap --outdir=src --watch \" \" nodemon server.js  \"",
+    "build": "esbuild build/* --bundle --platform=node --minify --sourcemap --outdir=src",
+    "dev": "concurrently \" esbuild build/* --bundle --platform=node --minify --sourcemap --outdir=src --watch \" \" nodemon server.js  \"",
     "start": "node server.js"
   },
   "repository": {
