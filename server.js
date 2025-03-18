@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/src', express.static('src'));
+app.use(express.static('node_modules/bootstrap/dist/css/'))
 
 server.listen(PORT, () => {
     console.log(`\nListening on ... \n`);
