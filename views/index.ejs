@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap.min.css">
-    <title>Document</title>
+    <title>Neh Games</title>
 </head>
 <body>
-    <h1> Neh Games </h1>
-    <button> Button </button>
+    <div class="d-flex">
+        <%- include("_sidebarnav") %>
+        <div style="flex-grow: 1;">
+            <%- include('_topnav') %>
+            <div class="container">
+                <h1> Welcome to Neh Games </h1>
+                <div>
+                    <a href="http://gear5ichigo.github.io/nehgames"> go here while i build this site </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="src/index.js"></script>
 </body>
 </html>
