@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild ./build/* --bundle --platform=node --minify --sourcemap --outdir=src",
-    "dev": "concurrently \" esbuild build/* --bundle --platform=node --minify --sourcemap --outdir=src --watch \" \" nodemon server.js  \"",
+    "build": "esbuild ./build/** --bundle --platform=node --minify --sourcemap --outdir=src",
+    "dev": "concurrently \" esbuild build/** --bundle --platform=node --minify --sourcemap --outdir=src --watch \" \" nodemon server.js  \"",
     "start": "node server.js"
   },
   "repository": {
@@ -20,12 +20,14 @@
   },
   "homepage": "https://github.com/zenerz/nehgames#readme",
   "dependencies": {
+    "@pixi/ui": "^2.2.2",
     "bootstrap": "^5.3.3",
     "concurrently": "^9.1.2",
     "ejs": "^3.1.10",
     "esbuild": "^0.25.1",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
+    "pixi.js": "^8.9.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
   }

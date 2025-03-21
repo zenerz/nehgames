@@ -27,6 +27,8 @@ server.listen(PORT, () => {
 
 app.get('/', (req, res) => res.render('index') );
 
+app.get('/fnaf2', (req, res) => res.render('game', {game: 'fnaf2'}))
+
 app.get('*', (req, res) => {
     res.send('<h1> Page does not exist </h1>');
 })
