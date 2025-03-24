@@ -2,6 +2,7 @@ import { Application, Text } from 'pixi.js'
 import GameAssets from './assets';
 import root from './rootcontainer'
 import Game from './game';
+import MainMenu from './mainmenu';
 
 (async () => {
 
@@ -10,15 +11,16 @@ import Game from './game';
     app.canvas.classList.add('d-block', 'm-0');
     document.body.appendChild(app.canvas);
     app.stage.addChild(root);
-    root.addChild(new Text({text: '', x: 1920/2, y:200, style: {fill: 0xffffff}}))
+    root.addChild(new Text({text: '', x: 1920/2-100, y:200, style: {fill: 0xffffff, fontSize: 50,}}))
 
-    await GameAssets.init();
-    await Game.init();
+    window.onresize = () => app.stage.scale.set(innerWidth/root.nativeResolution.x, innerHeight/root.nativeResolution.y);
+    window.onresize();
 
-    window.onresize = e => {
-        const scale = {x: 1920/innerWidth, y: 1080/innerHeight};
-        app.stage.scale.set(scale.x, scale.y);
-    };
+    await GameAssets.init(async () => {
+        await Game.init();
+        await MainMenu.init();
+        root.addChild(MainMenu.container);
+    });
 
     app.ticker.add(ticker => {
 

@@ -2,9 +2,15 @@ import { Assets } from "pixi.js";
 import root from "./rootcontainer";
 
 export default class GameAssets {
-    static async init() {
-        const manifest = {
+    static async init(callBack) {
+        this.manifest = {
             bundles: [
+                {
+                    name: "fonts",
+                    assets: [
+                        {alias: "Consolas", src: "/assets/fonts/consolas.ttf"}
+                    ]
+                },
                 {
                     name: "titlescreen",
                     assets: [
@@ -47,26 +53,41 @@ export default class GameAssets {
                         {alias: "spjson", src: "/assets/fnaf2/sprites/tablet@0.5x.png.json"},
                     ]
                 },
+                {
+                    name: "screens",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/screens.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/screens@0.5x.png.json"},
+                    ]
+                },
             ]
         };
         
-        await Assets.init({manifest: manifest});
+        await Assets.init({manifest: this.manifest});
 
-        const totalassetcount = (() => {let c = 0; manifest.bundles.forEach(b => b.assets.forEach(a => c++)); return c})();
+        const totalassetcount = (()=>{let c=0;this.manifest.bundles.forEach(b => b.assets.forEach(a => c++)); return c})();
         let assetcount = 0;
-        console.log(totalassetcount)
 
         function tallyProgress(p) {
+            const label = root.getChildAt(0);
             assetcount ++;
-            console.log(assetcount/totalassetcount);
-            root.getChildAt(0).text = (assetcount/totalassetcount)*100+"% loaded";
+            label.text = (assetcount/totalassetcount)*100+"% loaded";
             if (assetcount/totalassetcount >= 1) {
-                
+                label.text = 'Loading Complete!';
+                setTimeout(() => {
+                   root.removeChildAt(0); 
+                   callBack();
+                }, 222);
             }
         }
 
-        manifest.bundles.forEach(async bundle => {
-            this[bundle.name] = await Assets.loadBundle(bundle.name, tallyProgress);
-        });
+        this.fonts = await Assets.loadBundle('fonts', tallyProgress);
+        this.office = await Assets.loadBundle('office', tallyProgress);
+        this.desk = await Assets.loadBundle('desk', tallyProgress);
+        this.titlescreen = await Assets.loadBundle('titlescreen', tallyProgress);
+        this.screens = await Assets.loadBundle('screens', tallyProgress);
+        this.freddymask = await Assets.loadBundle('freddymask', tallyProgress);
+        this.tablet = await Assets.loadBundle('tablet', tallyProgress);
+        this.static1 = await Assets.loadBundle('static1', tallyProgress);
     }
 }
