@@ -11,8 +11,9 @@ const PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use('/src', express.static('src'));
 app.use(express.static('node_modules/bootstrap/dist/css/'))
+app.use('/assets', express.static('assets'))
+app.use('/src', express.static('src'));
 
 server.listen(PORT, () => {
     console.log(`\nListening on ... \n`);
