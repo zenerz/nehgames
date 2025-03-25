@@ -1,12 +1,16 @@
 import { Container } from "pixi.js";
-import root from "../fnaf2/rootcontainer";
 
 export default class VisualAspect {
 
-    static async init() {
+    static async init(root, parent) {
         this.container = new Container();
         this.deltaTime = 0;
         root.visualAspects.push(this);
+        console.log(parent)
+        if (parent == undefined)
+            root.addChild(this.container);
+        else
+            parent.addChild(this.container);
     }
 
     static add(e) {

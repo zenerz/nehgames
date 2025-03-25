@@ -63,7 +63,7 @@ export default class SpriteLoader {
             }
 
             resetAnimations() {
-                this.forEach( ([key, animation]) => {
+                this.forEach( animation => {
                     animation.gotoAndStop(0);
                 })
             }

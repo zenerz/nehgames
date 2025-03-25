@@ -3,7 +3,9 @@ import { sound, soundAsset } from '@pixi/sound';
 import GameAssets from './assets';
 import root from './rootcontainer'
 import Game from './game';
+import Office from './office';
 import MainMenu from './mainmenu';
+import Screens from './screens';
 
 (async () => {
 
@@ -21,9 +23,9 @@ import MainMenu from './mainmenu';
     extensions.add(soundAsset)
 
     await GameAssets.init(async () => {
-        await Game.init();
-        await MainMenu.init();
-        root.addChild(MainMenu.container);
+        await MainMenu.init(root);
+        await Game.init(root);
+        await Screens.init(root);
     });
 
     app.ticker.add(ticker => root.updateLoop(ticker));

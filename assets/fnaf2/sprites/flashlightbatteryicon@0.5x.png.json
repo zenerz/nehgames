@@ -1,98 +1,115 @@
 {
 	"frames": {
-		"292.png": {
+		"133.png": {
 			"frame": {
 				"x": 1,
 				"y": 1,
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			},
 			"sourceSize": {
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			}
 		},
-		"293.png": {
+		"142.png": {
 			"frame": {
 				"x": 1,
-				"y": 438,
-				"w": 851,
-				"h": 435
+				"y": 53,
+				"w": 100,
+				"h": 50
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			},
 			"sourceSize": {
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			}
 		},
-		"294.png": {
+		"143.png": {
 			"frame": {
-				"x": 854,
-				"y": 1,
-				"w": 851,
-				"h": 435
+				"x": 1,
+				"y": 105,
+				"w": 100,
+				"h": 50
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			},
 			"sourceSize": {
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			}
 		},
-		"297.png": {
+		"145.png": {
 			"frame": {
-				"x": 854,
-				"y": 438,
-				"w": 851,
-				"h": 435
+				"x": 1,
+				"y": 157,
+				"w": 100,
+				"h": 50
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
 			},
 			"sourceSize": {
-				"w": 851,
-				"h": 435
+				"w": 100,
+				"h": 50
+			}
+		},
+		"146.png": {
+			"frame": {
+				"x": 1,
+				"y": 209,
+				"w": 100,
+				"h": 50
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 50
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 50
 			}
 		}
 	},
 	"meta": {
 		"app": "http://www.codeandweb.com/texturepacker",
 		"version": "1.0",
-		"image": "desk.png",
+		"image": "flashlightbatteryicon.png",
 		"format": "RGBA8888",
 		"size": {
-			"w": 1706,
-			"h": 874
+			"w": 102,
+			"h": 260
 		},
 		"scale": "1"
-	},
-	"animations": {
-		"main": ["292.png", "293.png", "294.png", "297.png"]
 	}
 }

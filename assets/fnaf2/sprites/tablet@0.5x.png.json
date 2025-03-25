@@ -231,5 +231,9 @@
 			"h": 8470
 		},
 		"scale": "1"
+	},
+	"animations": {
+		"up": ["115.png", "98.png", "117.png", "100.png", "104.png", "105.png", "106.png", "107.png", "111.png", "113.png", "114.png", "114.png"],
+		"down": ["114.png", "113.png", "111.png", "107.png", "106.png", "105.png", "104.png", "100.png", "117.png", "98.png", "115.png", "115.png"]
 	}
 }

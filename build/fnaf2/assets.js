@@ -69,9 +69,57 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "flashlightbatteryicon",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/flashlightbatteryicon.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/flashlightbatteryicon@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "lightsbuttons",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/lightsbuttons.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/lightsbuttons@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "usebuttons",
+                    assets: [
+                        {alias: "mask", src: "/assets/fnaf2/sprites/120.png"},
+                        {alias: "cams", src: "/assets/fnaf2/sprites/96.png"},
+                    ]
+                },
+                {
+                    name: "fake3dshader",
+                    assets: [
+                        {alias: "frag", src: "/assets/fake3dfrag.txt"},
+                        {alias: "vert", src: "/assets/fake3dvert.txt"},
+                    ]
+                },
+                {
                     name: "audio",
                     assets: [
-                        {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"}
+                        {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"},
+                        {alias: "blip3", src: "/assets/fnaf2/audio/blip3.wav"},
+                        {alias: "buzzlight", src: "/assets/fnaf2/audio/buzzlight.wav"},
+                        {alias: "clockchimes", src: "/assets/fnaf2/audio/Clocks_Chimes_Cl_02480702.wav"},
+                        {alias: "freddymask1", src: "/assets/fnaf2/audio/FENCING_42_GEN-HDF10953.wav"},
+                        {alias: "freddymask2", src: "/assets/fnaf2/audio/FENCING_43_GEN-HDF10954.wav"},
+                        {alias: "deepbreaths", src: "/assets/fnaf2/audio/deepbreaths.wav"},
+                        {alias: "fansound", src: "/assets/fnaf2/audio/fansound.wav"},
+                        {alias: "camflip1", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097704.wav"},
+                        {alias: "camflip2", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097701.wav"},
+                    ]
+                },
+                {
+                    name: "callaudios",
+                    assets: [
+                        {alias: "call1", src: "/assets/fnaf2/audio/call 1b.wav"},
+                        {alias: "call2", src: "/assets/fnaf2/audio/call 2b.wav"},
+                        {alias: "call3", src: "/assets/fnaf2/audio/call 3b.wav"},
+                        {alias: "call4", src: "/assets/fnaf2/audio/call 4b.wav"},
+                        {alias: "call5", src: "/assets/fnaf2/audio/call 5b.wav"},
+                        {alias: "call6", src: "/assets/fnaf2/audio/call 6b.wav"},
                     ]
                 }
             ]
@@ -108,8 +156,14 @@ export default class GameAssets {
         this.tablet = await Assets.loadBundle('tablet', tallyProgress);
         this.static1 = await Assets.loadBundle('static1', tallyProgress);
         this.blipflash = await Assets.loadBundle('blipflash', tallyProgress);
+        this.flashlightbatteryicon = await Assets.loadBundle('flashlightbatteryicon', tallyProgress);
+        this.lightsbuttons = await Assets.loadBundle('lightsbuttons', tallyProgress);
+        this.usebuttons = await Assets.loadBundle('usebuttons', tallyProgress);
+        this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
 
         this.audio = await Assets.loadBundle('audio', tallyProgress);
+        this.callaudios = await Assets.loadBundle('callaudios', tallyProgress);
+
 
         console.log(this.audio.bgmusic.play({loop: true}))
     }
