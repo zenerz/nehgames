@@ -8,7 +8,8 @@ export default class GameAssets {
                 {
                     name: "fonts",
                     assets: [
-                        {alias: "Consolas", src: "/assets/fonts/consolas.ttf"}
+                        {alias: "Consolas", src: "/assets/fonts/consolas.ttf"},
+                        {alias: "OCRAStd", src: "/assets/fonts/OCRAStd.otf"}
                     ]
                 },
                 {
@@ -60,6 +61,19 @@ export default class GameAssets {
                         {alias: "spjson", src: "/assets/fnaf2/sprites/screens@0.5x.png.json"},
                     ]
                 },
+                {
+                    name: "blipflash",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/blipflash.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/blipflash@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "audio",
+                    assets: [
+                        {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"}
+                    ]
+                }
             ]
         };
         
@@ -81,6 +95,10 @@ export default class GameAssets {
             }
         }
 
+        Assets.ProgressCallback = p => {
+            console.log(p)
+        }
+
         this.fonts = await Assets.loadBundle('fonts', tallyProgress);
         this.office = await Assets.loadBundle('office', tallyProgress);
         this.desk = await Assets.loadBundle('desk', tallyProgress);
@@ -89,5 +107,10 @@ export default class GameAssets {
         this.freddymask = await Assets.loadBundle('freddymask', tallyProgress);
         this.tablet = await Assets.loadBundle('tablet', tallyProgress);
         this.static1 = await Assets.loadBundle('static1', tallyProgress);
+        this.blipflash = await Assets.loadBundle('blipflash', tallyProgress);
+
+        this.audio = await Assets.loadBundle('audio', tallyProgress);
+
+        console.log(this.audio.bgmusic.play({loop: true}))
     }
 }

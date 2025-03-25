@@ -1,4 +1,5 @@
-import { Application, Text } from 'pixi.js'
+import { Application, extensions, Text, Ticker } from 'pixi.js'
+import { sound, soundAsset } from '@pixi/sound';
 import GameAssets from './assets';
 import root from './rootcontainer'
 import Game from './game';
@@ -16,13 +17,15 @@ import MainMenu from './mainmenu';
     window.onresize = () => app.stage.scale.set(innerWidth/root.nativeResolution.x, innerHeight/root.nativeResolution.y);
     window.onresize();
 
+    sound.disableAutoPause = true;
+    extensions.add(soundAsset)
+
     await GameAssets.init(async () => {
         await Game.init();
         await MainMenu.init();
         root.addChild(MainMenu.container);
     });
 
-    app.ticker.add(ticker => {
-
-    });
+    app.ticker.add(ticker => root.updateLoop(ticker));
+    
 })();

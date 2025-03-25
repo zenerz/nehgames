@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/zenerz/nehgames#readme",
   "dependencies": {
+    "@pixi/sound": "^6.0.1",
     "@pixi/ui": "^2.2.2",
     "bootstrap": "^5.3.3",
     "concurrently": "^9.1.2",
