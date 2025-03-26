@@ -98,6 +98,13 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "mainhall",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/mainhall.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/mainhall@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "cam-utilities",
                     assets: [
                         {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/utilities.png"},
@@ -174,7 +181,10 @@ export default class GameAssets {
         this.flashlightbatteryicon = await Assets.loadBundle('flashlightbatteryicon', tallyProgress);
         this.lightsbuttons = await Assets.loadBundle('lightsbuttons', tallyProgress);
         this.usebuttons = await Assets.loadBundle('usebuttons', tallyProgress);
+
         this.stage = await Assets.loadBundle('stage', tallyProgress);
+        this.mainhall = await Assets.loadBundle('mainhall', tallyProgress);
+
         this.camutils = await Assets.loadBundle('cam-utilities', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
 

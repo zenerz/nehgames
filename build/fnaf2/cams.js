@@ -10,6 +10,12 @@ export default class Cams extends VisualAspect {
         this.container.visible = false;
 
         this.utilssheet = await SpriteLoader.loadSheet('camutils');
+        this.stage = await SpriteLoader.loadSheet('stage');
+        this.mainhall = await SpriteLoader.loadSheet('mainhall');
+
+        /** @type {Sprite} */
+        this.sprite = this.add(new Sprite(this.stage.textures['117.png']));
+        this.sprite.setSize(root.nativeResolution.x, root.nativeResolution.y);
 
         /** @type {Container} */
         this.static1Anim = this.add(await SpriteLoader.AnimatedSprite('static1', anim => {
@@ -61,5 +67,9 @@ export default class Cams extends VisualAspect {
         }));
         b.scale = this.map.scale;
         return b;
+    }
+
+    static updateLoop(ticker) {
+
     }
 }
