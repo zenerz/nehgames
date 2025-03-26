@@ -9,7 +9,8 @@ export default class GameAssets {
                     name: "fonts",
                     assets: [
                         {alias: "Consolas", src: "/assets/fonts/consolas.ttf"},
-                        {alias: "OCRAStd", src: "/assets/fonts/OCRAStd.otf"}
+                        {alias: "OCRAStd", src: "/assets/fonts/OCRAStd.otf"},
+                        {alias: "Volter", src: "/assets/fonts/Volter__28Goldfish_29.ttf"},
                     ]
                 },
                 {
@@ -90,6 +91,20 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "stage",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/stage.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/stage@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "cam-utilities",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/utilities.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/utilities@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "fake3dshader",
                     assets: [
                         {alias: "frag", src: "/assets/fake3dfrag.txt"},
@@ -159,12 +174,15 @@ export default class GameAssets {
         this.flashlightbatteryicon = await Assets.loadBundle('flashlightbatteryicon', tallyProgress);
         this.lightsbuttons = await Assets.loadBundle('lightsbuttons', tallyProgress);
         this.usebuttons = await Assets.loadBundle('usebuttons', tallyProgress);
+        this.stage = await Assets.loadBundle('stage', tallyProgress);
+        this.camutils = await Assets.loadBundle('cam-utilities', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
 
         this.audio = await Assets.loadBundle('audio', tallyProgress);
         this.callaudios = await Assets.loadBundle('callaudios', tallyProgress);
 
 
-        console.log(this.audio.bgmusic.play({loop: true}))
+        this.audio.bgmusic.play({loop: true});
+        console.log(this.fonts)
     }
 }

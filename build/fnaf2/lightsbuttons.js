@@ -13,12 +13,20 @@ export default class LightsButtons extends VisualAspect {
         this.leftSprite = this.add(await SpriteLoader.Sprite('lightsbuttons'));
         this.leftSprite.swapTexture('91.png');
         this.leftSprite.scale = this.bScale;
-        this.leftSprite.position.set(-Office.margin+175, root.nativeResolution.y/2-45);
+        this.leftSprite.position.set(-Office.margin+175, root.nativeResolution.y/2-40);
+        this.leftSprite.eventMode = 'static';
+        this.leftSprite.onpointerdown = e => {
+            
+        }
 
         /** @type {Sprite} */
         this.rightSprite = this.add(await SpriteLoader.Sprite('lightsbuttons'));
-        this.rightSprite.swapTexture('94.png');
-        this.rightSprite.position.set(Office.sprite.width-Office.margin-this.rightSprite.width-210, root.nativeResolution.y/2-45)
+        this.rightSprite.swapTexture('99.png');
+        this.rightSprite.position.set(Office.sprite.width-Office.margin-this.rightSprite.width-210, root.nativeResolution.y/2-40)
         this.rightSprite.scale = this.bScale;
+        this.rightSprite.eventMode = 'static';
+        this.rightSprite.onpointerdown = e => {
+            this.rightSprite.swapTexture('94.png')
+        }
     }
 }
