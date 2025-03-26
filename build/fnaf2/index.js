@@ -1,9 +1,8 @@
-import { Application, extensions, Text, Ticker } from 'pixi.js'
+import { Application, extensions, Text } from 'pixi.js'
 import { sound, soundAsset } from '@pixi/sound';
 import GameAssets from './assets';
 import root from './rootcontainer'
 import Game from './game';
-import Office from './office';
 import MainMenu from './mainmenu';
 import Screens from './screens';
 
@@ -28,6 +27,7 @@ import Screens from './screens';
         await Screens.init(root);
     });
 
+    app.ticker.maxFPS = 60;
     app.ticker.add(ticker => root.updateLoop(ticker));
     
 })();
