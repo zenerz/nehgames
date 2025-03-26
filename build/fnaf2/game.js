@@ -12,7 +12,7 @@ export default class Game extends VisualAspect {
         super.init(root);
 
         this.maskOn, this.camUp = false;
-        this.currentCam = 'CAM9';
+        this.currentCam = '09';
 
         await OfficeMovement.init(root, this.container);
         await Office.init(root, this.container);

@@ -38,13 +38,13 @@ export default class Cams extends VisualAspect {
         this.border.position.set(borderOffset, borderOffset);
 
         this._09 = this.#makeButton('09', 520, 30);
-        this._10 = this.#makeButton('10', 600, 200);
+        this._10 = this.#makeButton('10', 410, 210);
         this._11 = this.#makeButton('11', 570, 140);
-        this._12 = this.#makeButton('12', 400, 200);
-        this._8 = this.#makeButton('08', 100, 100);
-        this._7 = this.#makeButton('07', 100, 100);
-        this._6 = this.#makeButton('06', 100, 100);
-        this._5 = this.#makeButton('05', 100, 100);
+        this._12 = this.#makeButton('12', 520, 300);
+        this._8 = this.#makeButton('08', 45, 70);
+        this._7 = this.#makeButton('07', 275, 75);
+        this._6 = this.#makeButton('06', 225, 425);
+        this._5 = this.#makeButton('05', 50, 425);
         this._4 = this.#makeButton('04', 100, 100);
         this._3 = this.#makeButton('03', 100, 100);
         this._2 = this.#makeButton('02', 100, 100);

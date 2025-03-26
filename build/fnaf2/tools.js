@@ -1,8 +1,6 @@
 import SpriteLoader from "../common/spriteloader";
 import VisualAspect from "../common/visualaspect";
-import { Container, Sprite } from "pixi.js";
-import Cams from "./cams";
-import Game from "./game";
+import { Container } from "pixi.js";
 
 export default class Tools extends VisualAspect {
     static async init(root, parent) {
