@@ -11,6 +11,7 @@ export default class GameAssets {
                         {alias: "Consolas", src: "/assets/fonts/consolas.ttf"},
                         {alias: "OCRAStd", src: "/assets/fonts/OCRAStd.otf"},
                         {alias: "Volter", src: "/assets/fonts/Volter__28Goldfish_29.ttf"},
+                        {alias: "fnaf", src: "/assets/fonts/five-nights-at-freddys.ttf"},
                     ]
                 },
                 {

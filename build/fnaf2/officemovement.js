@@ -10,7 +10,7 @@ export default class OfficeMovement extends VisualAspect {
 
         const daAlpha = 0.0;
         const moveWidth = 0.375;
-        this.movePercentage = 0.015;
+        this.movePercentage = 0.0175;
         this.moveLeft, this.moveRight = false;
 
         /** @type {Graphics} */

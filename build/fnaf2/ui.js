@@ -63,6 +63,7 @@ export default class UI extends VisualAspect {
         Tools.tablet.animations.down.onComplete = () => Tools.tablet.visible = false;
         Tools.tablet.animations.up.onComplete = () => {
             Game.camUp = true; Cams.container.visible = true;
+            Cams.blipFlashAnim.playAnimation(); Cams.blipFlashAnim.visible = true;
         }
 
         /** @type {Sprite} */

@@ -31,6 +31,7 @@ export default class Game extends VisualAspect {
     }
 
     static updateLoop(ticker) {
+        super.updateLoop(ticker);
         if (!this.container.visible) return;
     }
 }
