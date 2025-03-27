@@ -3,6 +3,7 @@ import SpriteLoader from "../common/spriteloader";
 import VisualAspect from "../common/visualaspect";
 import GameAssets from "./assets";
 import Game from "./game";
+import Office from "./office";
 
 export default class Cams extends VisualAspect {
     static async init(root, parent) {
@@ -13,10 +14,13 @@ export default class Cams extends VisualAspect {
         this.utilssheet = await SpriteLoader.loadSheet('camutils');
         this.stage = await SpriteLoader.loadSheet('stage');
         this.mainhall = await SpriteLoader.loadSheet('mainhall');
+        this.partsservices = await SpriteLoader.loadSheet('partsservices');
 
         /** @type {Sprite} */
         this.sprite = this.add(new Sprite(this.stage.textures['117.png']));
         this.sprite.setSize(root.nativeResolution.x, root.nativeResolution.y);
+        this.sprite.scale.x = 1.2;
+        this.sprite.filters = [Office.fake3d];
 
         /** @type {Container} */
         this.static1Anim = this.add(await SpriteLoader.AnimatedSprite('static1', anim => {
@@ -50,12 +54,34 @@ export default class Cams extends VisualAspect {
         );
         this.border.position.set(borderOffset, borderOffset);
 
-        this._09 = this.#makeButton('09', 520, 30, () => this.locationText.text = 'Show Stage');
+        this._09 = this.#makeButton('09', 520, 30, () => {
+            this.locationText.text = 'Show Stage';
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.stage.textures['117.png'];
+            }
+        });
         this._10 = this.#makeButton('10', 410, 210, () => this.locationText.text = 'Game Area');
         this._11 = this.#makeButton('11', 570, 140, () => this.locationText.text = 'Prize Corner');
         this._12 = this.#makeButton('12', 520, 300, () => this.locationText.text = 'Kid\'s Cove');
-        this._8 = this.#makeButton('08', 45, 70, () => this.locationText.text = 'Parts/Services');
-        this._7 = this.#makeButton('07', 275, 75, () => this.locationText.text = 'Main Hall');
+        this._8 = this.#makeButton('08', 45, 70, () => {
+            this.locationText.text = 'Parts/Services';
+            this.locationText.text = 'Main Hall';
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.partsservices.textures['201.png'];
+            }
+        });
+        this._7 = this.#makeButton('07', 275, 75, () => {
+            this.locationText.text = 'Main Hall';
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.mainhall.textures['51.png'];
+            }
+        });
         this._6 = this.#makeButton('06', 225, 425, () => this.locationText.text = 'Right Air Vent');
         this._5 = this.#makeButton('05', 50, 425, () => this.locationText.text = 'Left Air Vent');
         this._4 = this.#makeButton('04', 100, 100, () => this.locationText.text = 'Party Room 4');
@@ -69,7 +95,9 @@ export default class Cams extends VisualAspect {
     }
 
     static updateCamsSprites() {
+        if (Game.currentCam === '09') {
 
+        }
     }
 
     static #makeButton(cam, x, y, callBack) {
@@ -77,14 +105,16 @@ export default class Cams extends VisualAspect {
         const b = this.add(new Sprite(this.utilssheet.textures['16.png']));
         b.position.set(this.map.x+x, this.map.y+y);
         b.eventMode = 'static';
+        b.callBack = () => {if (Game.currentCam === cam) callBack();}
         b.onpointerdown = e => {
-            if (this._currentButtonObject === b) return;
+            if (this._currentButtonObject === b || Game.currentCam === cam) return;
+            Game.currentCam = cam;
             this.buttonFlashGreenTimer = 0;
             this._currentButtonObject.texture = this.utilssheet.textures['16.png'];
             this._currentButtonObject = b;
             this.blipFlashAnim.playAnimation(); this.blipFlashAnim.visible = true;
             GameAssets.audio.blip3.play();
-            if (callBack !== undefined) callBack();
+            b.callBack();
         }
         /** @type {Text} */
         b.addChild(new Text({
@@ -103,7 +133,6 @@ export default class Cams extends VisualAspect {
             this.buttonFlashGreenTimer = -0.5;
             if (this._currentButtonObject.texture !== this.utilssheet.textures['16.png'])
                 this._currentButtonObject.texture = this.utilssheet.textures['16.png'];
-            console.log('asd');
         } else if (this.buttonFlashGreenTimer >= 0) {
             if (this._currentButtonObject.texture !== this.utilssheet.textures['17.png'])
                 this._currentButtonObject.texture = this.utilssheet.textures['17.png'];

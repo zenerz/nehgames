@@ -1,5 +1,5 @@
 import VisualAspect from "../common/visualaspect";
-import { Sprite } from "pixi.js";
+import { Sprite, Text } from "pixi.js";
 import GameAssets from "./assets";
 import SpriteLoader from "../common/spriteloader";
 import Game from "./game";
@@ -66,9 +66,13 @@ export default class UI extends VisualAspect {
             Cams.blipFlashAnim.playAnimation(); Cams.blipFlashAnim.visible = true;
         }
 
+        /** @type {Text} */
+        this.flashlightText = this.add(new Text({text: 'flashlight', style : {fontFamily: GameAssets.fonts.fnaf.family, fontSize: 48, fill: 0xffffff}}));
+        this.flashlightText.position.set(Cams.border.x+25, Cams.border.y+10);
+
         /** @type {Sprite} */
         this.flashlightBatteryIcon = this.add(await SpriteLoader.Sprite('flashlightbatteryicon'));
-        this.flashlightBatteryIcon.scale = 1.25;
-        this.flashlightBatteryIcon.position.set(Cams.border.x, Cams.border.y);
+        this.flashlightBatteryIcon.scale = 1.35;
+        this.flashlightBatteryIcon.position.set(this.flashlightText.x-10, this.flashlightText.y+this.flashlightText.height-5);
     }
 }

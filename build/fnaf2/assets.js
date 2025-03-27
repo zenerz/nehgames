@@ -106,6 +106,13 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "parts&services",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/parts&services.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/parts&services@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "cam-utilities",
                     assets: [
                         {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/utilities.png"},
@@ -185,6 +192,7 @@ export default class GameAssets {
 
         this.stage = await Assets.loadBundle('stage', tallyProgress);
         this.mainhall = await Assets.loadBundle('mainhall', tallyProgress);
+        this.partsservices = await Assets.loadBundle('parts&services', tallyProgress);
 
         this.camutils = await Assets.loadBundle('cam-utilities', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
