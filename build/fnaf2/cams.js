@@ -62,7 +62,7 @@ export default class Cams extends VisualAspect {
         }
         /** @type {Text} */
         b.addChild(new Text({
-            text: 'CAM\n'+cam, x: 7, y: 3.25,
+            text: 'CAM\n'+cam, x: 7.5, y: 5,
             style: {fill: 0xffffff, fontFamily: '\"Volter  28goldfish 29\"', fontSize: 15, lineHeight: 13}
         }));
         b.scale = this.map.scale;

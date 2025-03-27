@@ -10,10 +10,12 @@ export default class UI extends VisualAspect {
     static async init(root, parent) {
         super.init(root, parent);
 
+        const bScale = {x: 1.8, y: 1.4};
+
         /** @type {Sprite} */
         this.maskButton = this.add(new Sprite(GameAssets.usebuttons.mask));
-        this.maskButton.scale.x = 1.5;
-        this.maskButton.position.set(root.nativeResolution.x/10, Cams.border.y+Cams.border.height-this.maskButton.height-15);
+        this.maskButton.scale.set(bScale.x, bScale.y);
+        this.maskButton.position.set(Cams.border.x+10, Cams.border.y+Cams.border.height-this.maskButton.height-20);
         this.maskButton.eventMode = 'static';
         this.maskButton.onpointerenter = e => {
             if (Tools.freddyMask.currentAnimation.playing || Tools.tablet.currentAnimation.playing) return;
@@ -36,7 +38,7 @@ export default class UI extends VisualAspect {
 
         /** @type {Sprite} */
         this.camsButton = this.add(new Sprite(GameAssets.usebuttons.cams));
-        this.camsButton.scale.x = 1.5;
+        this.camsButton.scale.set(bScale.x, bScale.y);
         this.camsButton.position.set(this.maskButton.x + this.maskButton.width, this.maskButton.y);
         this.camsButton.eventMode = 'static';
         this.camsButton.onpointerenter = e => {
