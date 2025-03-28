@@ -7,6 +7,8 @@ import Cams from "./cams";
 import GameAssets from "./assets";
 import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
+import { Animatronic } from "./animatronic";
+import MainMenu from "./mainmenu";
 
 export default class Game extends VisualAspect {
     static async init(root) {
@@ -29,13 +31,21 @@ export default class Game extends VisualAspect {
     }
 
     static start(options) {
+        MainMenu.container.visible = false;
         this.container.visible = true;
+        GameAssets.audio.bgmusic.stop();
         GameAssets.audio.fansound.play({loop: true});
         // GameAssets.callaudios.call1.play();
+        this.animatronics = {
+            test: new Animatronic(20, 5)
+        }
 
     }
 
     static updateLoop(ticker) {
         super.updateLoop(ticker);
+        if (this.animatronics) {
+            for (const animatronic of Object.values(this.animatronics)) animatronic.movement(ticker, () => {})
+        }
     }
 }

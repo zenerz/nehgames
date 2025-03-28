@@ -4,6 +4,7 @@ import SpriteLoader from "../common/spriteloader";
 import root from "./rootcontainer";
 import { FancyButton } from "@pixi/ui";
 import Screens from "./screens";
+import Game from "./game";
 
 export default class MainMenu extends VisualAspect {
     static async init(root) {
@@ -58,7 +59,8 @@ export default class MainMenu extends VisualAspect {
         }));
         this.continueGame.position.set(this.newGame.x, this.newGame.y+this.newGame.height+10);
         this.continueGame.button.onPress.connect(e => {
-            
+            if (Screens.transition) return;
+            Game.start({});
         })
         //
         /** @type {FancyButton} */
