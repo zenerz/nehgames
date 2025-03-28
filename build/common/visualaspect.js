@@ -19,5 +19,6 @@ export default class VisualAspect {
 
     static updateLoop(ticker) {
         this.deltaTime = ticker.deltaTime/ticker.FPS;
+        if (!this.container.visible) return;
     }
 }

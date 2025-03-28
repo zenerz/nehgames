@@ -5,6 +5,7 @@ import SpriteLoader from "../common/spriteloader";
 import Game from "./game";
 import Cams from "./cams";
 import Tools from "./tools";
+import Office from "./office";
 
 export default class UI extends VisualAspect {
     static async init(root, parent) {
@@ -26,6 +27,8 @@ export default class UI extends VisualAspect {
                 Tools.freddyMask.visible = true;
                 GameAssets.audio.freddymask1.play();
                 this.camsButton.visible = false;
+                Game.flashLightOn = false;
+                Office.updateSprite();
             } else if (Game.maskOn) {
                 Game.maskOn = false;
                 Tools.freddyMask.position.set(root.nativeResolution.x/2, root.nativeResolution.y/2);
@@ -47,6 +50,7 @@ export default class UI extends VisualAspect {
                 Tools.tablet.playAnimation('up');
                 Tools.tablet.visible = true;
                 GameAssets.audio.camflip1.play();
+                this.maskButton.visible = false;
             } else if (Game.camUp) {
                 Game.camUp = false; Cams.container.visible = false;
                 Tools.tablet.playAnimation('down');
@@ -60,7 +64,10 @@ export default class UI extends VisualAspect {
             this.camsButton.visible = true;
         }
 
-        Tools.tablet.animations.down.onComplete = () => Tools.tablet.visible = false;
+        Tools.tablet.animations.down.onComplete = () => {
+            Tools.tablet.visible = false;
+            this.maskButton.visible = true;
+        }
         Tools.tablet.animations.up.onComplete = () => {
             Game.camUp = true; Cams.container.visible = true;
             Cams.blipFlashAnim.playAnimation(); Cams.blipFlashAnim.visible = true;

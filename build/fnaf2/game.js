@@ -6,13 +6,17 @@ import Tools from "./tools";
 import Cams from "./cams";
 import GameAssets from "./assets";
 import UI from "./ui";
+import KeyControlls from "../common/keycontrolls";
 
 export default class Game extends VisualAspect {
     static async init(root) {
         super.init(root);
 
         this.maskOn, this.camUp = false;
+        this.leftVentLightOn, this.rightVentLightOn = false;
+        this.flashLightOn = false;
         this.currentCam = '09';
+        this.keyControlls = new KeyControlls();
 
         await OfficeMovement.init(root, this.container);
         await Office.init(root, this.container);
@@ -28,10 +32,10 @@ export default class Game extends VisualAspect {
         this.container.visible = true;
         GameAssets.audio.fansound.play({loop: true});
         // GameAssets.callaudios.call1.play();
+
     }
 
     static updateLoop(ticker) {
         super.updateLoop(ticker);
-        if (!this.container.visible) return;
     }
 }

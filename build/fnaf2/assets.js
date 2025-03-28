@@ -132,6 +132,7 @@ export default class GameAssets {
                         {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"},
                         {alias: "blip3", src: "/assets/fnaf2/audio/blip3.wav"},
                         {alias: "buzzlight", src: "/assets/fnaf2/audio/buzzlight.wav"},
+                        {alias: "popstatic", src: "/assets/fnaf2/audio/popstatic.wav"},
                         {alias: "clockchimes", src: "/assets/fnaf2/audio/Clocks_Chimes_Cl_02480702.wav"},
                         {alias: "freddymask1", src: "/assets/fnaf2/audio/FENCING_42_GEN-HDF10953.wav"},
                         {alias: "freddymask2", src: "/assets/fnaf2/audio/FENCING_43_GEN-HDF10954.wav"},

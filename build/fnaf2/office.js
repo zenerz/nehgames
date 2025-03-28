@@ -4,6 +4,7 @@ import VisualAspect from "../common/visualaspect";
 import root from "./rootcontainer";
 import GameAssets from "./assets";
 import LightsButtons from "./lightsbuttons";
+import Game from "./game";
 
 export default class Office extends VisualAspect {
     static async init(root, parent) {
@@ -11,7 +12,7 @@ export default class Office extends VisualAspect {
         
         /** @type {Sprite} */
         this.sprite = this.add(await SpriteLoader.Sprite('office'));
-        this.sprite.swapTexture('93.png')
+        this.sprite.swapTexture('93.png');
         this.sprite.setSize(root.nativeResolution.x, root.nativeResolution.y);
         this.sprite.anchor.x = 0.5;
         this.sprite.x = root.nativeResolution.x/2;
@@ -43,5 +44,33 @@ export default class Office extends VisualAspect {
         this.container.filters = [this.fake3d];
 
         await LightsButtons.init(root, this.container);
+    }
+
+    static updateSprite() {
+        if (Game.flashLightOn) {
+            if (false) {
+
+            } else {
+                this.sprite.swapTexture('124.png');
+            }
+        }
+        else if (Game.rightVentLightOn || Game.leftVentLightOn) {
+            if (Game.rightVentLightOn) {
+                LightsButtons.rightSprite.swapTexture('94.png');
+                if (false) {
+
+                } else this.sprite.swapTexture('169.png');
+            } 
+            if (Game.leftVentLightOn) {
+                LightsButtons.leftSprite.swapTexture('92.png');
+                if (false) {
+
+                } else this.sprite.swapTexture('167.png');
+            }
+        } else {
+            this.sprite.swapTexture('93.png');
+            LightsButtons.rightSprite.swapTexture('99.png');
+            LightsButtons.leftSprite.swapTexture('91.png');
+        }
     }
 }
