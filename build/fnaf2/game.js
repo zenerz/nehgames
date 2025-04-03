@@ -7,7 +7,7 @@ import Cams from "./cams";
 import GameAssets from "./assets";
 import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
-import { Animatronic } from "./animatronic";
+import { Animatronic } from "./animatronics/animatronic";
 import MainMenu from "./mainmenu";
 
 export default class Game extends VisualAspect {
@@ -18,6 +18,22 @@ export default class Game extends VisualAspect {
         this.leftVentLightOn, this.rightVentLightOn = false;
         this.flashLightOn = false;
         this.currentCam = '09';
+        this.locations = {
+            '09': [],
+            '10': [],
+            '11': [],
+            '12': [],
+            '08': [],
+            '07': [],
+            '06': [],
+            '05': [],
+            '04': [],
+            '03': [],
+            '02': [],
+            '01': [],
+            'Office': [],
+            'OfficeHallway': [],
+        }
         this.keyControlls = new KeyControlls();
 
         await OfficeMovement.init(root, this.container);
