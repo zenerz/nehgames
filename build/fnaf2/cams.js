@@ -4,6 +4,7 @@ import VisualAspect from "../common/visualaspect";
 import GameAssets from "./assets";
 import Game from "./game";
 import Office from "./office";
+import ToyChica from "./animatronics/toychica";
 
 export default class Cams extends VisualAspect {
     static async init(root, parent) {
@@ -56,8 +57,10 @@ export default class Cams extends VisualAspect {
 
         this._09 = this.#makeButton('09', 520, 30, () => {
             this.locationText.text = 'Show Stage';
-            if (false) {
-
+            if (Game.locationMap.locations.get('09').entities.length === 1) {
+                this.sprite.texture = this.stage.textures['178.png'];
+            } else if ((Game.locationMap.locations.get('09').entities.length === 2)) {
+                this.sprite.texture = this.stage.textures['176.png'];
             } else {
                 this.sprite.texture = this.stage.textures['117.png'];
             }
@@ -76,18 +79,18 @@ export default class Cams extends VisualAspect {
         });
         this._7 = this.#makeButton('07', 275, 75, () => {
             this.locationText.text = 'Main Hall';
-            if (false) {
-
+            if (Game.locationMap.locations.get('07').entities[0] instanceof ToyChica) {
+                this.sprite.texture = this.mainhall.textures['440.png'];
             } else {
                 this.sprite.texture = this.mainhall.textures['51.png'];
             }
         });
         this._6 = this.#makeButton('06', 225, 425, () => this.locationText.text = 'Right Air Vent');
         this._5 = this.#makeButton('05', 50, 425, () => this.locationText.text = 'Left Air Vent');
-        this._4 = this.#makeButton('04', 100, 100, () => this.locationText.text = 'Party Room 4');
-        this._3 = this.#makeButton('03', 100, 100, () => this.locationText.text = 'Party Room 3');
-        this._2 = this.#makeButton('02', 100, 100, () => this.locationText.text = 'Party Room 2');
-        this._1 = this.#makeButton('01', 100, 100, () => this.locationText.text = 'Party Room 1');
+        this._4 = this.#makeButton('04', 250, 200, () => this.locationText.text = 'Party Room 4');
+        this._3 = this.#makeButton('03', 25, 200, () => this.locationText.text = 'Party Room 3');
+        this._2 = this.#makeButton('02', 250, 300, () => this.locationText.text = 'Party Room 2');
+        this._1 = this.#makeButton('01', 25, 300, () => this.locationText.text = 'Party Room 1');
 
         this._currentButtonObject = this._09;
         this.buttonFlashGreenTimer = 0;

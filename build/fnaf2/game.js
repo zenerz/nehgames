@@ -10,7 +10,9 @@ import KeyControlls from "../common/keycontrolls";
 import { Animatronic } from "./animatronics/animatronic";
 import MainMenu from "./mainmenu";
 import { LocationMap } from "./locationmap";
-
+import ToyBonnie from "./animatronics/toybonnie";
+import ToyChica from "./animatronics/toychica";
+import ToyFreddy from "./animatronics/toyfreddy";
 export default class Game extends VisualAspect {
     static async init(root) {
         super.init(root);
@@ -18,23 +20,8 @@ export default class Game extends VisualAspect {
         this.maskOn, this.camUp = false;
         this.leftVentLightOn, this.rightVentLightOn = false;
         this.flashLightOn = false;
+        this.blackout = false;
         this.currentCam = '09';
-        this.locations = {
-            '09': [],
-            '10': [],
-            '11': [],
-            '12': [],
-            '08': [],
-            '07': [],
-            '06': [],
-            '05': [],
-            '04': [],
-            '03': [],
-            '02': [],
-            '01': [],
-            'Office': [],
-            'OfficeHallway': [],
-        }
         this.locationMap = new LocationMap(this.locations);
         this.keyControlls = new KeyControlls();
 
@@ -54,16 +41,26 @@ export default class Game extends VisualAspect {
         GameAssets.audio.bgmusic.stop();
         GameAssets.audio.fansound.play({loop: true});
         // GameAssets.callaudios.call1.play();
-        this.animatronics = {
-            test: new Animatronic(20, 5)
-        }
-
+        this.locationMap = new LocationMap([
+            '01', '02', '03', '04',
+            '05', '06',
+            '07', '08', '09',
+            '10', '11', '12',
+            'Left Vent', 'Right Vent',
+            'Office Hall Close', 'Office Hall Far', 'Office',
+        ]);
+        this.locationMap.populate({
+            ToyBonnie: new ToyBonnie(),
+            ToyChica: new ToyChica(20),
+            ToyFreddy: new ToyFreddy(20),
+        });
+        this.blackoutQueue = [];
     }
 
     static updateLoop(ticker) {
         super.updateLoop(ticker);
-        if (this.animatronics) {
-            for (const animatronic of Object.values(this.animatronics)) animatronic.movement(ticker, () => {})
+        if (this.locationMap) {
+            this.locationMap.update(ticker);
         }
     }
 }

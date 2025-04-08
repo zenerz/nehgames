@@ -6,6 +6,12 @@ class Animatronic {
         this.aiLevel = options.aiLevel || 0;
         this.movementInterval = options.movementInterval || 5;
         this.timeElapsed = 0;
+        this.location = null;
+        this.previousLocation = null;
+    }
+
+    setLocation(location) {
+        this.location = location;
     }
 
     /** @param {number} aiLevel */
@@ -22,11 +28,11 @@ class Animatronic {
     movement(ticker, successfulMovementCallback) {
         this.timeElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
         if (this.timeElapsed >= this.movementInterval) {
-            this.movementInterval = 0;
-            if (Math.floor(Math.random() * 20 + 1) <= this.movementInterval) {
+            this.timeElapsed = 0;
+            if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
                 successfulMovementCallback();
                 this.updateSprite();
-            }
+            } else console.log('fail')
         }
     }
 
@@ -40,12 +46,13 @@ class RoamingAnimatronic extends Animatronic {
         /** @type {Map<string, Array<string>} */
         this.paths;
         this.setPaths(options.paths);
-        this.currentLocation = this.paths.values().next().value;
+        this.currentLocation = this.paths ? this.paths.keys().next().value : null;
     }
 
     setPaths(paths) {
         if (paths instanceof Array) {
             this.paths = new Map(paths);
+            console.log(this.paths)
         } else {
             this.paths = paths;
         }
@@ -55,10 +62,11 @@ class RoamingAnimatronic extends Animatronic {
     /** @param {Ticker} ticker * @param {Function} movementCallBack   */
     movement(ticker, movementCallBack) {
         super.movement(ticker, () => {
-            const possiblePaths = this.paths.get(this.currentLocation);
-            const nextLocation = possiblePaths[Math.random() * possiblePaths.length];
-            this.currentLocation = nextLocation;
             movementCallBack();
+            const possiblePaths = this.paths.get(this.currentLocation);
+            const nextLocation = possiblePaths[Math.floor(Math.random() * possiblePaths.length)];
+            this.previousLocation = this.currentLocation;
+            this.currentLocation = nextLocation;
         });
     }
 }

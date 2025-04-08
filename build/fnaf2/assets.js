@@ -120,6 +120,13 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "insideoffice",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/insideoffice.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/insideoffice@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "fake3dshader",
                     assets: [
                         {alias: "frag", src: "/assets/fake3dfrag.txt"},
@@ -140,6 +147,7 @@ export default class GameAssets {
                         {alias: "fansound", src: "/assets/fnaf2/audio/fansound.wav"},
                         {alias: "camflip1", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097704.wav"},
                         {alias: "camflip2", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097701.wav"},
+                        {alias: "stare", src: "/assets/fnaf2/audio/stare.wav"},
                     ]
                 },
                 {
@@ -196,6 +204,7 @@ export default class GameAssets {
         this.partsservices = await Assets.loadBundle('parts&services', tallyProgress);
 
         this.camutils = await Assets.loadBundle('cam-utilities', tallyProgress);
+        this.insideoffice = await Assets.loadBundle('insideoffice', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
 
         this.audio = await Assets.loadBundle('audio', tallyProgress);
