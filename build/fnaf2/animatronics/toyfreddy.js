@@ -1,8 +1,7 @@
 import Game from "../game";
-import Office from "../office";
-import { RoamingAnimatronic } from "./animatronic";
+import { OfficeInvaderAnimatronic, RoamingAnimatronic } from "./animatronic";
 
-export default class ToyFreddy extends RoamingAnimatronic {
+export default class ToyFreddy extends OfficeInvaderAnimatronic {
     constructor() {
         super({aiLevel: 20, movementInterval: 5.0})
         this.currentLocation = '09';
@@ -13,12 +12,5 @@ export default class ToyFreddy extends RoamingAnimatronic {
             ['Office Hall Close', ['Office']],
             ['Office', ['09']]
         ]);
-    }
-
-    movement(ticker) {
-        if (Game.blackout) return;
-        super.movement(ticker, () => {
-            
-        })
     }
 }

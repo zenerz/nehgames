@@ -35,7 +35,7 @@ export default class Tools extends VisualAspect {
             this.freddyMask.y += (Math.random() * 90 - 45)/200 * ticker.deltaMS;
         }
 
-        if (!Game.maskOn) {
+        if (!Game.maskOn && !Game.blackout) {
             if (!(Game.rightVentLightOn || Game.leftVentLightOn)) {
                 if (Game.keyControlls.getKeyStatus('ControlLeft')) {
                     if (!GameAssets.audio.buzzlight.isPlaying)

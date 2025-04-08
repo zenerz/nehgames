@@ -1,9 +1,9 @@
 import Game from "../game";
-import { RoamingAnimatronic } from "./animatronic";
+import { OfficeInvaderAnimatronic, RoamingAnimatronic } from "./animatronic";
 
-export default class ToyBonnie extends RoamingAnimatronic {
+export default class ToyBonnie extends OfficeInvaderAnimatronic {
     constructor() {
-        super({aiLevel: 20, movementInterval: 2.0})
+        super({aiLevel: 20, movementInterval: 5.0})
         this.currentLocation = '09';
         this.setPaths([
             ['09', ['03']],
@@ -13,11 +13,5 @@ export default class ToyBonnie extends RoamingAnimatronic {
             ['Right Vent', ['Office']],
             ['Office', ['03']]
         ]);
-    }
-
-    movement(ticker) {
-        super.movement(ticker, () => {
-            
-        })
     }
 }

@@ -19,6 +19,7 @@ export default class Game extends VisualAspect {
         this.leftVentLightOn, this.rightVentLightOn = false;
         this.flashLightOn = false;
         this.blackout = false;
+        this.blackoutElapsed = 0;
         this.currentCam = '09';
         this.keyControlls = new KeyControlls();
 
@@ -46,12 +47,14 @@ export default class Game extends VisualAspect {
             'Left Vent', 'Right Vent',
             'Office Hall Close', 'Office Hall Far', 'Office',
         ]);
+        this.locationMap.locations.get('Office').capacity = 1;
         this.locationMap.populate({
             ToyBonnie: new ToyBonnie(),
-            ToyChica: new ToyChica(20),
+            
             ToyFreddy: new ToyFreddy(20),
         });
         this.blackoutQueue = [];
+        this.attackQueue = [];
     }
 
     static updateLoop(ticker) {

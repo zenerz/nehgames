@@ -68,27 +68,31 @@ export default class Office extends VisualAspect {
 
     static updateSprite() {
         this.toyfreddy.visible = false;
-        if (Game.locationMap && Game.locationMap.locations.get('Office').entities.length > 0) {
-            if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyFreddy) {
-                this.sprite.swapTexture('93.png');
-                this.toyfreddy.visible = true;
-            } else {
+        this.toybonnie.visible = false;
+        if (Game.blackout) {
+            if (Game.locationMap && Game.locationMap.locations.get('Office').entities.length > 0) {
+                if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyFreddy) {
+                    this.sprite.swapTexture('93.png');
+                    this.toyfreddy.visible = true;
+                } else if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyBonnie) {
+                    this.toybonnie.visible = true;
+                } else {
 
+                }
             }
         } else if (Game.flashLightOn) {
             if (Game.locationMap.locations.get('Office Hall Close').entities.length > 0) {
                 if (Game.locationMap.locations.get('Office Hall Close').entities[0] instanceof ToyFreddy) {
                     this.sprite.swapTexture('194.png');
                 }
-            } else if (Game.locationMap.locations.get('Office Hall Far').entities[0] instanceof ToyChica) {
+            } else if (Game.locationMap.locations.get('Office Hall Far').entities[0]) {
                 this.sprite.swapTexture('184.png');
             } else if (Game.locationMap.locations.get('Office Hall Far').entities[0] instanceof ToyFreddy) {
                 this.sprite.swapTexture('193.png');
             } else {
                 this.sprite.swapTexture('124.png');
             }
-        }
-        else if (Game.rightVentLightOn || Game.leftVentLightOn) {
+        } else if (Game.rightVentLightOn || Game.leftVentLightOn) {
             if (Game.rightVentLightOn) {
                 LightsButtons.rightSprite.swapTexture('94.png');
                 if (Game.locationMap.locations.get('Right Vent').entities[0] instanceof ToyBonnie) {
@@ -118,31 +122,32 @@ export default class Office extends VisualAspect {
             GameAssets.audio.stare.play();
         this.blackoutFlashTime = 0;
         this.blackoutElapsed = 0;
-        this.blackoutFullWait = 0;
         this.blackoutBox.alpha = 1;
     }
 
     static updateLoop(ticker) {
         super.updateLoop(ticker);
         if (Game.blackout) {
+            this.updateSprite();
             this.blackoutElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
             this.blackoutFlashTime += (1/ticker.maxFPS) * ticker.deltaTime;
-            if (this.blackoutFlashTime >= 0.2 && this.blackoutElapsed < 2.0) {
+            if (this.blackoutFlashTime >= 0.025) {
+                this.blackoutFlashTime = 0;
                 this.blackoutBox.visible = Math.floor(Math.random()*2) === 0 ? true : false;
             }
-            if (this.blackoutElapsed >= 2.0) {
+            if (this.blackoutElapsed > 3.0) {
+                this.blackoutElapsed = 0;
                 this.blackoutBox.visible = true;
-                this.blackoutFullWait += (1/ticker.maxFPS) * ticker.deltaTime;
-                if (this.blackoutFullWait >= 1.0 && this.blackoutBox.alpha > 0) {
-                    Game.blackout = false;
-                    Office.updateSprite();
-                    this.blackoutBox.alpha -= 0.1 * this.deltaTime;
-                }
-                if (this.blackoutBox.alpha <= 0) this.blackoutBox.visible = false;
+                Game.blackout = false;
+                this.updateSprite();
             }
         } else {
-            if (this.blackoutBox.visible) this.blackoutBox.visible = false;
-            if (GameAssets.audio.stare.isPlaying) GameAssets.audio.stare.stop();
+            if (this.blackoutBox.visible && this.blackoutBox.alpha > 0) {
+                this.blackoutBox.alpha -= 0.005 * ticker.deltaTime;
+            } else {
+                if (this.blackoutBox.visible) this.blackoutBox.visible = false;
+                if (GameAssets.audio.stare.isPlaying) GameAssets.audio.stare.stop();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ import { Animatronic } from "./animatronics/animatronic";
 class Location {
     constructor() {
         this.entities = [];
+        this.capacity = Number.MAX_VALUE;
     }
 }
 
@@ -27,9 +28,14 @@ class LocationMap {
 
     update(ticker) {
         for (const ent of Object.values(this.entities)) {
+
             ent.movement(ticker);
+            ent.camUpCheck(ticker);
+            ent.blackoutCheck(ticker);
+
             const plo = this.locations.get(ent.previousLocation);
             const lo = this.locations.get(ent.currentLocation)
+
             if (lo !== undefined) {
                 if (lo.entities.indexOf(ent) === -1) 
                     lo.entities.push(ent);
@@ -38,6 +44,7 @@ class LocationMap {
                         plo.entities.splice(plo.entities.indexOf(ent), 1);
                 }
             }
+
         }
     }
 }

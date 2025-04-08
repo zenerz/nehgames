@@ -45,6 +45,7 @@ export default class UI extends VisualAspect {
         this.camsButton.position.set(this.maskButton.x + this.maskButton.width, this.maskButton.y);
         this.camsButton.eventMode = 'static';
         this.camsButton.onpointerenter = e => {
+            if (Game.blackout) return;
             if (Tools.tablet.currentAnimation.playing) return;
             if (!Game.maskOn && !Game.camUp) {
                 Tools.tablet.playAnimation('up');
