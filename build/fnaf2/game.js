@@ -9,6 +9,7 @@ import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
 import { Animatronic } from "./animatronics/animatronic";
 import MainMenu from "./mainmenu";
+import { LocationMap } from "./locationmap";
 
 export default class Game extends VisualAspect {
     static async init(root) {
@@ -34,6 +35,7 @@ export default class Game extends VisualAspect {
             'Office': [],
             'OfficeHallway': [],
         }
+        this.locationMap = new LocationMap(this.locations);
         this.keyControlls = new KeyControlls();
 
         await OfficeMovement.init(root, this.container);
