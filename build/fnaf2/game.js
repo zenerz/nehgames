@@ -1,4 +1,3 @@
-import { Container } from "pixi.js";
 import VisualAspect from "../common/visualaspect";
 import Office from "./office";
 import OfficeMovement from "./officemovement";
@@ -7,7 +6,6 @@ import Cams from "./cams";
 import GameAssets from "./assets";
 import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
-import { Animatronic } from "./animatronics/animatronic";
 import MainMenu from "./mainmenu";
 import { LocationMap } from "./locationmap";
 import ToyBonnie from "./animatronics/toybonnie";
@@ -22,7 +20,6 @@ export default class Game extends VisualAspect {
         this.flashLightOn = false;
         this.blackout = false;
         this.currentCam = '09';
-        this.locationMap = new LocationMap(this.locations);
         this.keyControlls = new KeyControlls();
 
         await OfficeMovement.init(root, this.container);

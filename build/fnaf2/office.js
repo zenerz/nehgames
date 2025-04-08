@@ -25,7 +25,7 @@ export default class Office extends VisualAspect {
 
         const insideofficesheet = await SpriteLoader.loadSheet('insideoffice');
         this.toyfreddy = this.add(new Sprite(insideofficesheet.textures['512.png']));
-        this.toyfreddy.scale = 1.4;
+        this.toyfreddy.scale = 1.3;
         this.toyfreddy.position.set(root.nativeResolution.x/2, root.nativeResolution.y-this.toyfreddy.height);
         this.toyfreddy.visible = false;
 

@@ -17,7 +17,7 @@ export default class ToyBonnie extends RoamingAnimatronic {
 
     movement(ticker) {
         super.movement(ticker, () => {
-            console.log(this.currentLocation, Game.locationMap.locations);
+            
         })
     }
 }

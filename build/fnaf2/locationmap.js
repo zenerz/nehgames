@@ -14,7 +14,7 @@ class LocationMap {
         locationList.forEach( l => {
             this.locations.set(l, new Location());
         });
-        this.entities = {}
+        this.entities = {};
     }
 
     populate(list) {
