@@ -3,10 +3,27 @@ import Game from "../game";
 import UI from "../ui";
 import Office from "../office";
 
-class CameraCheck {
-    /** @param {{interval: Number, denominator: Number}} options  */
+class RandomIntervalCheck {
+    /** @param {{interval: Number, denominator: Number, successfullCheckCallBack: Function}} options  */
     constructor(options) {
         this.timeElapsed = 0;
+        this.interval = options.interval || 0.5;
+        this.denominator = options.denominator || 5;
+        this.successfullCheckCallBack = options.successfullCheckCallBack || (() => {});
+    }
+
+    updateCheck(ticker, successfullCheckCallBack) {
+        this.timeElapsed += (ticker.maxFPS/1) * ticker.deltaTime;
+        if (this.timeElapsed >= this.interval) {
+            this.timeElapsed = 0;
+            if (Math.floor(Math.random() * this.denominator) === 0) {
+                if (successfullCheckCallBack) {
+                    successfullCheckCallBack();
+                } else if (this.successfullCheckCallBack) {
+                    this.successfullCheckCallBack();
+                }
+            }
+        }
     }
 }
 
@@ -46,22 +63,9 @@ class Animatronic {
         }
     }
 
-    camUpCheck(ticker, successfullCheckCallBack) {
-        if (Game.camUp) {
-            this.camUpElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
-            if (this.camUpElapsed >= 0.1) {
-                this.camUpElapsed = 0;
-                if (Math.floor(Math.random() * 20) === 0) {
-                    UI.camsButton.onpointerenter();
-                    if (successfullCheckCallBack) successfullCheckCallBack();
-                }
-            }
-        } else this.camUpElapsed = 0;
+    update() { 
+        
     }
-
-    blackoutCheck(ticker) {}
-
-    updateSprite() {}
 }
 
 class RoamingAnimatronic extends Animatronic {
