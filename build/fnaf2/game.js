@@ -9,7 +9,7 @@ import KeyControlls from "../common/keycontrolls";
 import MainMenu from "./mainmenu";
 import { LocationMap } from "./locationmap";
 import ToyBonnie from "./animatronics/toybonnie";
-import ToyChica from "./animatronics/toychica";
+import ToyChica from "./animatronics/toychica2";
 import ToyFreddy from "./animatronics/toyfreddy";
 export default class Game extends VisualAspect {
     static async init(root) {

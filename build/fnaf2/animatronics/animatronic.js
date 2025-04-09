@@ -3,6 +3,13 @@ import Game from "../game";
 import UI from "../ui";
 import Office from "../office";
 
+class CameraCheck {
+    /** @param {{interval: Number, denominator: Number}} options  */
+    constructor(options) {
+        this.timeElapsed = 0;
+    }
+}
+
 class Animatronic {
     /** @param {{aiLevel: number, movementInterval: number}} options */
     constructor(options) {
@@ -110,8 +117,7 @@ class OfficeInvaderAnimatronic extends RoamingAnimatronic {
         const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
         if (next === 'Office') {
             super.camUpCheck(ticker, () => {
-                this.updateLocation();
-                if (!Game.blackout) {
+                if (!Game.blackout && this.updateLocation()) {
                     Office.blackoutSequence();
                 }
             });

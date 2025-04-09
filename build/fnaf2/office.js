@@ -6,7 +6,7 @@ import GameAssets from "./assets";
 import LightsButtons from "./lightsbuttons";
 import Game from "./game";
 import ToyBonnie from "./animatronics/toybonnie";
-import ToyChica from "./animatronics/toychica";
+import ToyChica from "./animatronics/toychica2";
 import ToyFreddy from "./animatronics/toyfreddy";
 
 export default class Office extends VisualAspect {
