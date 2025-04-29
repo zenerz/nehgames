@@ -5,10 +5,10 @@ import Office from "../office";
 
 class RandomIntervalCheck {
     /** @param {{interval: Number, denominator: Number, successfullCheckCallBack: Function}} options  */
-    constructor(options) {
+    constructor(options = {}) {
         this.timeElapsed = 0;
         this.interval = options.interval || 0.5;
-        this.denominator = options.denominator || 5;
+        this.denominator = options.denominator || 10;
         this.successfullCheckCallBack = options.successfullCheckCallBack || (() => {});
     }
 
@@ -58,14 +58,14 @@ class Animatronic {
             this.timeElapsed = 0;
             if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
                 successfulMovementCallback();
-                this.updateSprite();
+                
             } else console.log('fail')
         }
     }
 
-    update() { 
-        
-    }
+    updateSprite() {}
+
+    update() {}
 }
 
 class RoamingAnimatronic extends Animatronic {
@@ -77,6 +77,8 @@ class RoamingAnimatronic extends Animatronic {
         this.setPaths(options.paths);
         this.currentLocation = this.paths ? this.paths.keys().next().value : null;
         this.leave = true;
+
+        this.camUpRandomInterval = new RandomIntervalCheck();
     }
 
     setPaths(paths) {
@@ -119,18 +121,22 @@ class OfficeInvaderAnimatronic extends RoamingAnimatronic {
     camUpCheck(ticker) {
         const keysArray = Array.from(this.paths.keys())
         const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
-        if (next === 'Office') {
-            super.camUpCheck(ticker, () => {
-                if (!Game.blackout && this.updateLocation()) {
-                    Office.blackoutSequence();
-                }
-            });
+        if (Game.camUp) {
+            if (next === 'Office') {
+                this.camUpRandomInterval.updateCheck(ticker, () => {
+                    if (!Game.blackout && this.updateLocation()) {
+                        Office.blackoutSequence();
+                        UI.camsButton.onpointerenter();
+                    }
+                });
+            }
+            if (this.currentLocation === 'Office') {
+                this.camUpRandomInterval.updateCheck(ticker, () => {
+                    UI.camsButton.onpointerenter();
+                });
+            }
         }
-        if (this.currentLocation === 'Office') {
-            super.camUpCheck(ticker, () => {
-
-            });
-        }
+        console.log(this.camUpRandomInterval.timeElapsed)
     }
 
     blackoutCheck(ticker) {

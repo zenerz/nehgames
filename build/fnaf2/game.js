@@ -50,7 +50,6 @@ export default class Game extends VisualAspect {
         this.locationMap.locations.get('Office').capacity = 1;
         this.locationMap.populate({
             ToyBonnie: new ToyBonnie(),
-            
             ToyFreddy: new ToyFreddy(20),
         });
         this.blackoutQueue = [];
