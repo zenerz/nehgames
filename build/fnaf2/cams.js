@@ -4,7 +4,7 @@ import VisualAspect from "../common/visualaspect";
 import GameAssets from "./assets";
 import Game from "./game";
 import Office from "./office";
-import ToyChica from "./animatronics/toychica";
+import { ToyChica } from "./animatronic";
 
 export default class Cams extends VisualAspect {
     static async init(root, parent) {
@@ -13,9 +13,17 @@ export default class Cams extends VisualAspect {
         this.container.visible = false;
 
         this.utilssheet = await SpriteLoader.loadSheet('camutils');
+        this.musicbox = await SpriteLoader.loadSheet('musicbox');
+
         this.stage = await SpriteLoader.loadSheet('stage');
+        this.gamearea = await SpriteLoader.loadSheet('gamearea');
+        this.prizecorner = await SpriteLoader.loadSheet('prizecorner');
         this.mainhall = await SpriteLoader.loadSheet('mainhall');
         this.partsservices = await SpriteLoader.loadSheet('partsservices');
+        this.partyroom4 = await SpriteLoader.loadSheet('partyroom4');
+        this.partyroom3 = await SpriteLoader.loadSheet('partyroom3');
+        this.partyroom2 = await SpriteLoader.loadSheet('partyroom2');
+        this.partyroom1 = await SpriteLoader.loadSheet('partyroom1');
 
         /** @type {Sprite} */
         this.sprite = this.add(new Sprite(this.stage.textures['117.png']));
@@ -65,12 +73,27 @@ export default class Cams extends VisualAspect {
                 this.sprite.texture = this.stage.textures['117.png'];
             }
         });
-        this._10 = this.#makeButton('10', 410, 210, () => this.locationText.text = 'Game Area');
-        this._11 = this.#makeButton('11', 570, 140, () => this.locationText.text = 'Prize Corner');
-        this._12 = this.#makeButton('12', 520, 300, () => this.locationText.text = 'Kid\'s Cove');
+        this._10 = this.#makeButton('10', 410, 210, () => {
+            this.locationText.text = 'Game Area'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.gamearea.textures['41.png'];
+            }
+        });
+        this._11 = this.#makeButton('11', 570, 140, () => {
+            this.locationText.text = 'Prize Corner'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.prizecorner.textures['76.png'];
+            }
+        });
+        this._12 = this.#makeButton('12', 520, 300, () => {
+            this.locationText.text = 'Kid\'s Cove'
+        });
         this._8 = this.#makeButton('08', 45, 70, () => {
             this.locationText.text = 'Parts/Services';
-            this.locationText.text = 'Main Hall';
             if (false) {
 
             } else {
@@ -87,10 +110,38 @@ export default class Cams extends VisualAspect {
         });
         this._6 = this.#makeButton('06', 225, 425, () => this.locationText.text = 'Right Air Vent');
         this._5 = this.#makeButton('05', 50, 425, () => this.locationText.text = 'Left Air Vent');
-        this._4 = this.#makeButton('04', 250, 200, () => this.locationText.text = 'Party Room 4');
-        this._3 = this.#makeButton('03', 25, 200, () => this.locationText.text = 'Party Room 3');
-        this._2 = this.#makeButton('02', 250, 300, () => this.locationText.text = 'Party Room 2');
-        this._1 = this.#makeButton('01', 25, 300, () => this.locationText.text = 'Party Room 1');
+        this._4 = this.#makeButton('04', 250, 200, () => {
+            this.locationText.text = 'Party Room 4'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.partyroom4.textures['43.png'];
+            }
+        });
+        this._3 = this.#makeButton('03', 25, 200, () => {
+            this.locationText.text = 'Party Room 3'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.partyroom3.textures['82.png'];
+            }
+        });
+        this._2 = this.#makeButton('02', 250, 300, () => {
+            this.locationText.text = 'Party Room 2'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.partyroom2.textures['80.png'];
+            }
+        });
+        this._1 = this.#makeButton('01', 25, 300, () => {
+            this.locationText.text = 'Party Room 1'
+            if (false) {
+
+            } else {
+                this.sprite.texture = this.partyroom1.textures['174.png'];
+            }
+        });
 
         this._currentButtonObject = this._09;
         this.buttonFlashGreenTimer = 0;
@@ -131,6 +182,12 @@ export default class Cams extends VisualAspect {
     static updateLoop(ticker) {
         super.updateLoop(ticker);
         if (!Game.container.visible) return;
+        if (Game.camUp && Game.currentCam === '11') {
+            if (GameAssets.audio.musicbox.paused) GameAssets.audio.musicbox.resume();
+            else if (!GameAssets.audio.musicbox.isPlaying) GameAssets.audio.musicbox.play();
+        } else {
+            if (GameAssets.audio.musicbox.isPlaying) GameAssets.audio.musicbox.pause();
+        }
         this.buttonFlashGreenTimer+=this.deltaTime;
         if (this.buttonFlashGreenTimer >= 0.5) {
             this.buttonFlashGreenTimer = -0.5;

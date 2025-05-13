@@ -24,8 +24,22 @@ export default class GameAssets {
                 {
                     name: "office",
                     assets: [
-                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/office.png"},
-                        {alias: "spjson", src: "/assets/fnaf2/sprites/office@0.5x.png.json"},
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/office/office.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/office/office@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "officehallway",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/office/hallway.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/office/hallway@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "officevents",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/office/vents.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/office/vents@0.5x.png.json"},
                     ]
                 },
                 {
@@ -99,6 +113,20 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "prizecorner",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/prizecorner.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/prizecorner@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "gamearea",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/gamearea.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/gamearea@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "mainhall",
                     assets: [
                         {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/mainhall.png"},
@@ -113,10 +141,45 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "partyroom4",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/partyroom4.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/partyroom4@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "partyroom3",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/partyroom3.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/partyroom3@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "partyroom2",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/partyroom2.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/partyroom2@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "partyroom1",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/partyroom1.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/cams/partyroom1@0.5x.png.json"},
+                    ]
+                },
+                {
                     name: "cam-utilities",
                     assets: [
                         {alias: "spritesheet", src: "/assets/fnaf2/sprites/cams/utilities.png"},
                         {alias: "spjson", src: "/assets/fnaf2/sprites/cams/utilities@0.5x.png.json"},
+                    ]
+                },
+                {
+                    name: "musicbox",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/musicbox.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/musicbox.json"},
                     ]
                 },
                 {
@@ -148,6 +211,7 @@ export default class GameAssets {
                         {alias: "camflip1", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097704.wav"},
                         {alias: "camflip2", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097701.wav"},
                         {alias: "stare", src: "/assets/fnaf2/audio/stare.wav"},
+                        {alias: "musicbox", src: "/assets/fnaf2/audio/Music_Box_Melody_Playful.wav"},
                     ]
                 },
                 {
@@ -188,6 +252,8 @@ export default class GameAssets {
 
         this.fonts = await Assets.loadBundle('fonts', tallyProgress);
         this.office = await Assets.loadBundle('office', tallyProgress);
+        this.officehallway = await Assets.loadBundle('officehallway', tallyProgress);
+        this.officevents = await Assets.loadBundle('officevents', tallyProgress);
         this.desk = await Assets.loadBundle('desk', tallyProgress);
         this.titlescreen = await Assets.loadBundle('titlescreen', tallyProgress);
         this.screens = await Assets.loadBundle('screens', tallyProgress);
@@ -200,10 +266,17 @@ export default class GameAssets {
         this.usebuttons = await Assets.loadBundle('usebuttons', tallyProgress);
 
         this.stage = await Assets.loadBundle('stage', tallyProgress);
+        this.gamearea = await Assets.loadBundle('gamearea', tallyProgress);
+        this.prizecorner = await Assets.loadBundle('prizecorner', tallyProgress);
         this.mainhall = await Assets.loadBundle('mainhall', tallyProgress);
         this.partsservices = await Assets.loadBundle('parts&services', tallyProgress);
+        this.partyroom4 = await Assets.loadBundle('partyroom4', tallyProgress);
+        this.partyroom3 = await Assets.loadBundle('partyroom3', tallyProgress);
+        this.partyroom2 = await Assets.loadBundle('partyroom2', tallyProgress);
+        this.partyroom1 = await Assets.loadBundle('partyroom1', tallyProgress);
 
         this.camutils = await Assets.loadBundle('cam-utilities', tallyProgress);
+        this.musicbox = await Assets.loadBundle('musicbox', tallyProgress);
         this.insideoffice = await Assets.loadBundle('insideoffice', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
 

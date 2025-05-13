@@ -1,21 +1,21 @@
 import { AnimatedSprite, Container, Filter, GlProgram, Graphics, Rectangle, Sprite, Ticker } from "pixi.js";
 import SpriteLoader from "../common/spriteloader";
 import VisualAspect from "../common/visualaspect";
-import root from "./rootcontainer";
 import GameAssets from "./assets";
 import LightsButtons from "./lightsbuttons";
 import Game from "./game";
-import ToyBonnie from "./animatronics/toybonnie";
-import ToyChica from "./animatronics/toychica2";
-import ToyFreddy from "./animatronics/toyfreddy";
+import { ToyFreddy, ToyBonnie, ToyChica } from "./animatronic";
 
 export default class Office extends VisualAspect {
     static async init(root, parent) {
         super.init(root, parent);
+
+        this.officeSheet = await SpriteLoader.loadSheet('office');
+        this.officeHallwaySheet = await SpriteLoader.loadSheet('officehallway');
+        this.officeVentsSheet = await SpriteLoader.loadSheet('officevents');
         
         /** @type {Sprite} */
-        this.sprite = this.add(await SpriteLoader.Sprite('office'));
-        this.sprite.swapTexture('93.png');
+        this.sprite = this.add(new Sprite(this.officeSheet.textures['92.png']));
         this.sprite.setSize(root.nativeResolution.x, root.nativeResolution.y);
         this.sprite.anchor.x = 0.5;
         this.sprite.x = root.nativeResolution.x/2;
@@ -44,9 +44,6 @@ export default class Office extends VisualAspect {
         this.blackoutBox = this.add(new Graphics().rect(0, 0, this.sprite.width*1.5, this.sprite.width).fill(0x000000));
         this.blackoutBox.pivot.x = this.sprite.width/2;
         this.blackoutBox.visible = false;
-        this.blackoutFlashTime = 0;
-        this.blackoutElapsed = 0;
-        this.blackoutFullWait = 0;
 
         /** @type {Filter} */
         this.fake3d = new Filter({
@@ -71,8 +68,8 @@ export default class Office extends VisualAspect {
         this.toybonnie.visible = false;
         if (Game.blackout) {
             if (Game.locationMap && Game.locationMap.locations.get('Office').entities.length > 0) {
+                this.sprite.texture = this.officeSheet.textures['92.png'];
                 if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyFreddy) {
-                    this.sprite.swapTexture('93.png');
                     this.toyfreddy.visible = true;
                 } else if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyBonnie) {
                     this.toybonnie.visible = true;
@@ -83,60 +80,51 @@ export default class Office extends VisualAspect {
         } else if (Game.flashLightOn) {
             if (Game.locationMap.locations.get('Office Hall Close').entities.length > 0) {
                 if (Game.locationMap.locations.get('Office Hall Close').entities[0] instanceof ToyFreddy) {
-                    this.sprite.swapTexture('194.png');
+                    this.sprite.texture = this.officeHallwaySheet.textures['193.png'];
                 }
-            } else if (Game.locationMap.locations.get('Office Hall Far').entities[0]) {
-                this.sprite.swapTexture('184.png');
+            } else if (Game.locationMap.locations.get('Office Hall Far').entities[0] instanceof ToyChica) {
+                this.sprite.texture = this.officeHallwaySheet.textures['183.png'];
             } else if (Game.locationMap.locations.get('Office Hall Far').entities[0] instanceof ToyFreddy) {
-                this.sprite.swapTexture('193.png');
+                this.sprite.texture = this.officeHallwaySheet.textures['192.png'];
             } else {
-                this.sprite.swapTexture('124.png');
+                this.sprite.texture = this.officeHallwaySheet.textures['123.png'];
             }
         } else if (Game.rightVentLightOn || Game.leftVentLightOn) {
             if (Game.rightVentLightOn) {
                 LightsButtons.rightSprite.swapTexture('94.png');
                 if (Game.locationMap.locations.get('Right Vent').entities[0] instanceof ToyBonnie) {
-                    this.sprite.swapTexture('181.png');
+                    this.sprite.texture = this.officeVentsSheet.textures['180.png'];
                 } else if (false) {
 
-                } else this.sprite.swapTexture('169.png');
+                } else this.sprite.texture = this.officeVentsSheet.textures['168.png'];
             } 
             if (Game.leftVentLightOn) {
                 LightsButtons.leftSprite.swapTexture('92.png');
                 if (Game.locationMap.locations.get('Left Vent').entities[0] instanceof ToyChica) {
-                    this.sprite.swapTexture('181.png');
+                    this.sprite.texture = this.officeVentsSheet.textures['79.png'];
                 } else if (false) {
 
-                } else this.sprite.swapTexture('167.png');
+                } else this.sprite.texture = this.officeVentsSheet.textures['166.png'];
             }
         } else {
-            this.sprite.swapTexture('93.png');
+            this.sprite.texture = this.officeSheet.textures['92.png'];
             LightsButtons.rightSprite.swapTexture('99.png');
             LightsButtons.leftSprite.swapTexture('91.png');
         }
-    }
-
-    static blackoutSequence() {
-        Game.blackout = true;
-        if (!GameAssets.audio.stare.isPlaying)
-            GameAssets.audio.stare.play();
-        this.blackoutFlashTime = 0;
-        this.blackoutElapsed = 0;
-        this.blackoutBox.alpha = 1;
     }
 
     static updateLoop(ticker) {
         super.updateLoop(ticker);
         if (Game.blackout) {
             this.updateSprite();
-            this.blackoutElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
-            this.blackoutFlashTime += (1/ticker.maxFPS) * ticker.deltaTime;
-            if (this.blackoutFlashTime >= 0.025) {
-                this.blackoutFlashTime = 0;
+            Game.blackoutElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            Game.blackoutFlashTime += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (Game.blackoutFlashTime >= 0.025) {
+                Game.blackoutFlashTime = 0;
                 this.blackoutBox.visible = Math.floor(Math.random()*2) === 0 ? true : false;
             }
-            if (this.blackoutElapsed > 3.0) {
-                this.blackoutElapsed = 0;
+            if (Game.blackoutElapsed > 3.0) {
+                Game.blackoutElapsed = 0;
                 this.blackoutBox.visible = true;
                 Game.blackout = false;
                 this.updateSprite();

@@ -54,6 +54,7 @@ export default class Screens extends VisualAspect {
     }
 
     static gameOverScreen() {
+        this.sprite.visible = true;
         this.sprite.swapTexture('227.png');
         this.static1Anim.playAnimation();
         this.static1Anim.visible = true;

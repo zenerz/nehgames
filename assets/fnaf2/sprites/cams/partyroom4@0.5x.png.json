@@ -1,0 +1,155 @@
+{
+	"frames": {
+		"129.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"130.png": {
+			"frame": {
+				"x": 1027,
+				"y": 1,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"148.png": {
+			"frame": {
+				"x": 1,
+				"y": 771,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"205.png": {
+			"frame": {
+				"x": 1027,
+				"y": 771,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"333.png": {
+			"frame": {
+				"x": 1,
+				"y": 1541,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"43.png": {
+			"frame": {
+				"x": 1027,
+				"y": 1541,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"45.png": {
+			"frame": {
+				"x": 2053,
+				"y": 1,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "partyroom4.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 3078,
+			"h": 2310
+		},
+		"scale": "1"
+	}
+}

@@ -1,4 +1,4 @@
-import { Animatronic } from "./animatronics/animatronic";
+import { Animatronic } from "./animatronic";
 
 class Location {
     constructor() {
@@ -32,6 +32,7 @@ class LocationMap {
             ent.movement(ticker);
             ent.camUpCheck(ticker);
             ent.blackoutCheck(ticker);
+            ent.update(ticker);
 
             const plo = this.locations.get(ent.previousLocation);
             const lo = this.locations.get(ent.currentLocation)
