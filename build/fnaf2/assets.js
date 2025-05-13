@@ -212,6 +212,7 @@ export default class GameAssets {
                         {alias: "camflip2", src: "/assets/fnaf2/audio/STEREO_CASSETTE__90097701.wav"},
                         {alias: "stare", src: "/assets/fnaf2/audio/stare.wav"},
                         {alias: "musicbox", src: "/assets/fnaf2/audio/Music_Box_Melody_Playful.wav"},
+                        {alias: "windup2", src: "/assets/fnaf2/audio/windup2.wav"},
                     ]
                 },
                 {

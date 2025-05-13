@@ -38,6 +38,32 @@ export default class Cams extends VisualAspect {
         }));
         this.static1Anim.playAnimation();
 
+        /** @type {Sprite} */
+        this.windMusicBoxButton = this.add(new Sprite(this.utilssheet.textures['16.png']));
+        this.windMusicBoxButton.visible = false;
+        this.windMusicBoxButton.eventMode = 'static';
+        this.windMusicBoxButton.position.set(root.nativeResolution.x*0.25, root.nativeResolution.y*0.75);
+        this.windMusicBoxButton.scale.y = 2; this.windMusicBoxButton.scale.x = 5; 
+        this.windMusicBoxButton.addChild(new Text({text: 'WIND\nMUSIC\nBOX', x: 7.5, y: 2.25, scale: 0.725,
+            style: {fill: 0xffffff, fontFamily: GameAssets.fonts.fnaf.family, fontSize: 27, lineHeight: 13.5, letterSpacing: 2.5}
+        }));
+        this.windMusicBoxButton.onpointerdown = e => {
+            this.windMusicBoxButton.texture = this.utilssheet.textures['17.png'];
+            Game.musicBoxWinding = true;
+            if (!GameAssets.audio.windup2.isPlaying) GameAssets.audio.windup2.play({loop: true});
+        }
+        this.windMusicBoxButton.onpointerup = e => {
+            this.windMusicBoxButton.texture = this.utilssheet.textures['16.png'];
+            Game.musicBoxWinding = false;
+            if (GameAssets.audio.windup2.isPlaying) GameAssets.audio.windup2.stop();
+        }
+        this.windMusicBoxButton.onpointerleave = e => { this.windMusicBoxButton.onpointerup(); }
+
+        /** @type {Sprite} */
+        this.musicBoxCircle = this.add(new Sprite(Object.values(this.musicbox.textures)[Object.values(this.musicbox.textures).length-1]));
+        this.musicBoxCircle.scale = 1.75;
+        this.musicBoxCircle.position.set(this.windMusicBoxButton.x-this.musicBoxCircle.width-this.musicBoxCircle.width*0.11, this.windMusicBoxButton.y);
+
         /** @type {Container} */
         this.blipFlashAnim = this.add(await SpriteLoader.AnimatedSprite('blipflash', anim => {
             anim.loop = false;
@@ -183,9 +209,13 @@ export default class Cams extends VisualAspect {
         super.updateLoop(ticker);
         if (!Game.container.visible) return;
         if (Game.camUp && Game.currentCam === '11') {
+            if (!this.windMusicBoxButton.visible) this.windMusicBoxButton.visible = true;
+            if (!this.musicBoxCircle.visible) this.musicBoxCircle.visible = true;
             if (GameAssets.audio.musicbox.paused) GameAssets.audio.musicbox.resume();
             else if (!GameAssets.audio.musicbox.isPlaying) GameAssets.audio.musicbox.play();
         } else {
+            if (this.windMusicBoxButton.visible) this.windMusicBoxButton.visible = false;
+            if (this.musicBoxCircle.visible) this.musicBoxCircle.visible = false;
             if (GameAssets.audio.musicbox.isPlaying) GameAssets.audio.musicbox.pause();
         }
         this.buttonFlashGreenTimer+=this.deltaTime;
@@ -197,5 +227,11 @@ export default class Cams extends VisualAspect {
             if (this._currentButtonObject.texture !== this.utilssheet.textures['17.png'])
                 this._currentButtonObject.texture = this.utilssheet.textures['17.png'];
         }
+
+        if (Game.musicBoxProgress > 0) {
+            this.musicBoxCircle.texture = Object.values(this.musicbox.textures)[Math.round(Game.musicBoxProgress/5)];
+        } else this.musicBoxCircle.texture = null;
+        
+
     }
 }

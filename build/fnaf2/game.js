@@ -25,6 +25,14 @@ export default class Game extends VisualAspect {
         this.blackoutFlashTime = 0;
         this.blackoutElapsed = 0;
 
+        this.musicBoxProgress = 100;
+        this.musicBoxInterval = 0.2;
+        this.musicBoxElapsed = 0;
+
+        this.musicBoxWinding = false;
+        this.musicBoxWindingInterval = 0.5;
+        this.musicBoxWindingElapsed = 0;
+
         await OfficeMovement.init(root, this.container);
         await Office.init(root, this.container);
         await Cams.init(root, this.container);
@@ -36,11 +44,11 @@ export default class Game extends VisualAspect {
     }
 
     static start(options) {
-        MainMenu.container.visible = false;
         this.container.visible = true;
+        MainMenu.container.visible = false;
         GameAssets.audio.bgmusic.stop();
         GameAssets.audio.fansound.play({loop: true});
-        GameAssets.callaudios.call1.play({volume: 0.33});
+        // GameAssets.callaudios.call1.play({volume: 0.33});
         this.locationMap = new LocationMap([
             '01', '02', '03', '04',
             '05', '06',
@@ -69,6 +77,10 @@ export default class Game extends VisualAspect {
         this.blackoutElapsed = 0;
         this.currentCam = '09';
 
+        this.musicBoxProgress = 100;
+        this.musicBoxInterval = 0.33;
+        this.musicBoxElapsed = 0;
+
         Office.container.x = 0;
     }
 
@@ -78,7 +90,10 @@ export default class Game extends VisualAspect {
         MainMenu.static1Anim.playAnimation();
         Object.values(GameAssets.audio).forEach( audio => {
             audio.stop();
-        })
+        });
+        Object.values(GameAssets.callaudios).forEach( audio => {
+            audio.stop();
+        });
         GameAssets.audio.bgmusic.play({loop: true});
     }
 
@@ -91,10 +106,35 @@ export default class Game extends VisualAspect {
         Office.blackoutBox.alpha = 1;
     }
 
+    static musicBox() {
+        this.musicBoxWinding = true;
+    }
+
     static updateLoop(ticker) {
         super.updateLoop(ticker);
+
         if (this.locationMap) {
             this.locationMap.update(ticker);
+        }
+
+        this.musicBoxElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+        if (this.musicBoxElapsed >= this.musicBoxInterval) {
+            this.musicBoxElapsed = 0;
+            if (this.musicBoxProgress > 0) {
+                this.musicBoxProgress -= 1;
+            }
+        }
+        if (this.musicBoxWinding && this.musicBoxProgress < 100 && this.camUp) {
+            this.musicBoxWindingElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (this.musicBoxWindingElapsed >= this.musicBoxWindingInterval) {
+                this.musicBoxWindingElapsed = 0;
+                this.musicBoxProgress += 5;
+            }
+            if (this.musicBoxProgress >= 100) {
+                this.musicBoxProgress = 100;
+            }
+        } else {
+            this.musicBoxWindingElapsed = 0;
         }
     }
 }

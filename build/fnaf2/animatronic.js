@@ -16,7 +16,6 @@ export class RandomIntervalCheck {
         if (condition()) {
             this.timeElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
             if (this.timeElapsed > this.interval) {
-                console.log(this.timeElapsed > this.interval, this.timeElapsed)
                 this.timeElapsed = 0;
                 if (Math.floor(Math.random() * this.denominator) === 0) {
                     if (successfullCheckCallBack) {
