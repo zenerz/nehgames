@@ -138,8 +138,8 @@ export class RoamingAnimatronic extends Animatronic {
                 this.currentLocation === 'Office' || 
                 this.currentLocation === 'Office Left Vent' ||
                 this.currentLocation === 'Office Right Vent'
-            ) return;
-            this.updateLocation();
+            ) return false;
+            return this.updateLocation();
         })
     }
 }
@@ -245,21 +245,31 @@ export class ToyBonnie extends OfficeInvaderAnimatronic {
                     GameAssets.audio.ventwalk1.play();
                 }, () => { return Game.maskOn });
             }
-            this.camUpRandomInterval.updateCheck(ticker, () => {
-                UI.camsButton.onpointerenter();
-                this.jumpscare();
-            }, () => { return Game.camUp });
             this.maskOnRandomInterval.updateCheck(ticker, () => {
                 if (!Game.blackout && this.updateLocation()) {
                     Game.blackoutSequence();
                 }
             }, () => { return Game.maskOn });
         }
+        if (this.currentLocation === 'Office' || this.currentLocation === 'Office Right Vent') {
+            this.camUpRandomInterval.updateCheck(ticker, () => {
+                UI.camsButton.onpointerenter();
+                Game.jumpscare = true;
+                GameAssets.audio.jumpscare.play({volume: 0.5});
+                Jumpscare.toyBonnieJumpscare.playAnimation();
+                Jumpscare.toyBonnieJumpscare.visible = true;
+                Jumpscare.toyBonnieJumpscare.currentAnimation.onComplete = () => { 
+                    Jumpscare.toyBonnieJumpscare.visible = false;
+                    Jumpscare.toyBonnieJumpscare.currentAnimation.gotoAndStop(0);
+                    this.jumpscare();
+                }
+            }, () => { return Game.camUp });
+        }
         this.blackoutCheck(ticker);
     }
 
     movement(ticker) {
-        super.movement(ticker);
+        if (super.movement(ticker)) GameAssets.audio.ventwalk1.play();
     }
 }
 
@@ -301,7 +311,7 @@ export class ToyChica extends OfficeInvaderAnimatronic {
     }
 
     movement(ticker) {
-        super.movement(ticker);
+        if (super.movement(ticker)) GameAssets.audio.ventwalk1.play();
     }
 }
 

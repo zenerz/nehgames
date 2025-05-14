@@ -28,7 +28,7 @@ export default class Game extends VisualAspect {
         this.blackoutElapsed = 0;
 
         this.musicBoxProgress = 100;
-        this.musicBoxInterval = 0.1;
+        this.musicBoxInterval = 0.15;
         this.musicBoxElapsed = 0;
 
         this.musicBoxWinding = false;

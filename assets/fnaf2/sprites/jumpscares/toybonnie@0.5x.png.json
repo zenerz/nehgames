@@ -1,0 +1,278 @@
+{
+	"frames": {
+		"700.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"702.png": {
+			"frame": {
+				"x": 1,
+				"y": 771,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"703.png": {
+			"frame": {
+				"x": 1,
+				"y": 1541,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"704.png": {
+			"frame": {
+				"x": 1,
+				"y": 2311,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"705.png": {
+			"frame": {
+				"x": 1,
+				"y": 3081,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"706.png": {
+			"frame": {
+				"x": 1,
+				"y": 3851,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"707.png": {
+			"frame": {
+				"x": 1,
+				"y": 4621,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"708.png": {
+			"frame": {
+				"x": 1,
+				"y": 5391,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"709.png": {
+			"frame": {
+				"x": 1,
+				"y": 6161,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"710.png": {
+			"frame": {
+				"x": 1,
+				"y": 6931,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"711.png": {
+			"frame": {
+				"x": 1,
+				"y": 7701,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"712.png": {
+			"frame": {
+				"x": 1,
+				"y": 8471,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		},
+		"714.png": {
+			"frame": {
+				"x": 1,
+				"y": 9241,
+				"w": 1024,
+				"h": 768
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 1024,
+				"h": 768
+			},
+			"sourceSize": {
+				"w": 1024,
+				"h": 768
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "toybonnie.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1026,
+			"h": 10010
+		},
+		"scale": "1"
+	},
+	"animations": {
+		"main": ["714.png", "700.png", "712.png", "702.png", "703.png", "704.png", "705.png", "706.png", "707.png", "708.png", "709.png", "710.png", "711.png"]
+	}
+}

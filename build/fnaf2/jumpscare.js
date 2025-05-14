@@ -11,5 +11,12 @@ export default class Jumpscare extends VisualAspect {
             anim.loop = false;
         }));
         this.puppetJumpscare.visible = false;
+
+        this.toyBonnieJumpscare = this.add(await SpriteLoader.AnimatedSprite('toybonniejumpscare', anim => {
+            anim.setSize(root.nativeResolution.x, root.nativeResolution.y);
+            anim.animationSpeed = 0.5;
+            anim.loop = false;
+        }));
+        this.toyBonnieJumpscare.visible = false;
     }
 }
