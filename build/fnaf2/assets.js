@@ -211,6 +211,13 @@ export default class GameAssets {
                     ] 
                 },
                 {
+                    name: "toychicajumpscare",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/jumpscares/toychica.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/jumpscares/toychica@0.5x.png.json"},
+                    ] 
+                },
+                {
                     name: "audio",
                     assets: [
                         {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"},
@@ -299,6 +306,7 @@ export default class GameAssets {
 
         this.puppetjumpscare = await Assets.loadBundle('puppetjumpscare', tallyProgress);
         this.toybonniejumpscare = await Assets.loadBundle('toybonniejumpscare', tallyProgress);
+        this.toychicajumpscare = await Assets.loadBundle('toychicajumpscare', tallyProgress);
 
         this.audio = await Assets.loadBundle('audio', tallyProgress);
         this.callaudios = await Assets.loadBundle('callaudios', tallyProgress);

@@ -118,12 +118,15 @@ export class RoamingAnimatronic extends Animatronic {
         return next;
     }
 
-    updateLocation() {
+    /** @param {{considerCapacity: number}} options */
+    updateLocation(options = {considerCapacity: true}) {
         const possiblePaths = this.paths.get(this.currentLocation);
         const nextLocation = possiblePaths[Math.floor(Math.random() * possiblePaths.length)];
-        if (Game.locationMap.locations.get(nextLocation).entities.length >= Game.locationMap.locations.get(nextLocation).capacity) {
-            console.log('full room')
-            return false;
+        if (options.considerCapacity) {
+            if (Game.locationMap.locations.get(nextLocation).entities.length >= Game.locationMap.locations.get(nextLocation).capacity) {
+                console.log('full room')
+                return false;
+            }
         }
         this.previousLocation = this.currentLocation;
         this.currentLocation = nextLocation;
@@ -132,14 +135,18 @@ export class RoamingAnimatronic extends Animatronic {
     }
 
     movement(ticker) {
-        super.movement(ticker, () => {
+        return super.movement(ticker, () => {
             if (
                 this.getNextLocation() === 'Office' ||
                 this.currentLocation === 'Office' || 
                 this.currentLocation === 'Office Left Vent' ||
                 this.currentLocation === 'Office Right Vent'
-            ) return false;
-            return this.updateLocation();
+            ) return;
+            if (this.updateLocation()) {
+                console.log('pased')
+                if (this.currentLocation === 'Office Left Vent' || this.currentLocation === 'Office Right Vent')
+                    GameAssets.audio.ventwalk1.play();
+            }
         })
     }
 }
@@ -267,10 +274,6 @@ export class ToyBonnie extends OfficeInvaderAnimatronic {
         }
         this.blackoutCheck(ticker);
     }
-
-    movement(ticker) {
-        if (super.movement(ticker)) GameAssets.audio.ventwalk1.play();
-    }
 }
 
 export class ToyChica extends OfficeInvaderAnimatronic {
@@ -303,15 +306,19 @@ export class ToyChica extends OfficeInvaderAnimatronic {
             }, () => { return Game.maskOn });
             this.camUpRandomInterval.updateCheck(ticker, () => {
                 if (!Game.blackout) {
-                    UI.camsButton.onpointerenter();
+                UI.camsButton.onpointerenter();
+                Game.jumpscare = true;
+                GameAssets.audio.jumpscare.play({volume: 0.5});
+                Jumpscare.toyChicaJumpscare.playAnimation();
+                Jumpscare.toyChicaJumpscare.visible = true;
+                Jumpscare.toyChicaJumpscare.currentAnimation.onComplete = () => { 
+                    Jumpscare.toyChicaJumpscare.visible = false;
+                    Jumpscare.toyChicaJumpscare.currentAnimation.gotoAndStop(0);
                     this.jumpscare();
+                }
                 }
             }, () => { return Game.camUp });
         }
-    }
-
-    movement(ticker) {
-        if (super.movement(ticker)) GameAssets.audio.ventwalk1.play();
     }
 }
 
@@ -348,7 +355,7 @@ export class Puppet extends RoamingAnimatronic {
                     if (this.outOfBoxProgress >= 3) {
                         this.outOfBoxProgress = 3;
                         this.outOfBox = true;
-                        this.updateLocation();
+                        this.updateLocation({considerCapacity: false});
                     }
                 }
             }
@@ -358,7 +365,7 @@ export class Puppet extends RoamingAnimatronic {
             if (this.timeElapsed >= this.movementInterval) {
                 this.timeElapsed = 0;
                 if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
-                    this.updateLocation();
+                    this.updateLocation({considerCapacity: false});
                 }
             }
         }
