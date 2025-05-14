@@ -4,7 +4,7 @@ import VisualAspect from "../common/visualaspect";
 import GameAssets from "./assets";
 import LightsButtons from "./lightsbuttons";
 import Game from "./game";
-import { ToyFreddy, ToyBonnie, ToyChica } from "./animatronic";
+import { ToyFreddy, ToyBonnie, ToyChica, WitheredFreddy } from "./animatronic";
 
 export default class Office extends VisualAspect {
     static async init(root, parent) {
@@ -73,14 +73,16 @@ export default class Office extends VisualAspect {
                     this.toyfreddy.visible = true;
                 } else if (Game.locationMap.locations.get('Office').entities[0] instanceof ToyBonnie) {
                     this.toybonnie.visible = true;
-                } else {
-
+                } else if (Game.locationMap.locations.get('Office').entities[0] instanceof WitheredFreddy) {
+                    this.sprite.texture = this.officeSheet.textures['74.png'];
                 }
             }
         } else if (Game.flashLightOn) {
             if (Game.locationMap.locations.get('Office Hall Close').entities.length > 0) {
                 if (Game.locationMap.locations.get('Office Hall Close').entities[0] instanceof ToyFreddy) {
                     this.sprite.texture = this.officeHallwaySheet.textures['193.png'];
+                } else if (Game.locationMap.locations.get('Office Hall Close').entities[0] instanceof WitheredFreddy) {
+                    this.sprite.texture = this.officeHallwaySheet.textures['211.png'];
                 }
             } else if (Game.locationMap.locations.get('Office Hall Far').entities[0] instanceof ToyChica) {
                 this.sprite.texture = this.officeHallwaySheet.textures['183.png'];

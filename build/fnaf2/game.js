@@ -8,7 +8,7 @@ import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
 import MainMenu from "./mainmenu";
 import { LocationMap } from "./locationmap";
-import { ToyFreddy, ToyBonnie, ToyChica, Puppet } from "./animatronic";
+import { ToyFreddy, ToyBonnie, ToyChica, Puppet, WitheredFreddy } from "./animatronic";
 import Screens from "./screens";
 import Jumpscare from "./jumpscare";
 
@@ -16,24 +16,7 @@ export default class Game extends VisualAspect {
     static async init(root) {
         super.init(root);
 
-        this.maskOn, this.camUp = false;
-        this.leftVentLightOn, this.rightVentLightOn = false;
-        this.flashLightOn = false;
-        this.blackout = false;
-        this.blackoutElapsed = 0;
-        this.currentCam = '09';
         this.keyControlls = new KeyControlls();
-        
-        this.blackoutFlashTime = 0;
-        this.blackoutElapsed = 0;
-
-        this.musicBoxProgress = 100;
-        this.musicBoxInterval = 0.15;
-        this.musicBoxElapsed = 0;
-
-        this.musicBoxWinding = false;
-        this.musicBoxWindingInterval = 0.4;
-        this.musicBoxWindingElapsed = 0;
 
         await OfficeMovement.init(root, this.container);
         await Office.init(root, this.container);
@@ -48,6 +31,7 @@ export default class Game extends VisualAspect {
 
     static start(options) {
         this.container.visible = true;
+        Cams.container.visible = false;
         MainMenu.container.visible = false;
         GameAssets.audio.bgmusic.stop();
         GameAssets.audio.fansound.play({loop: true});
@@ -67,6 +51,7 @@ export default class Game extends VisualAspect {
             ToyChica: new ToyChica({aiLevel: 20, movementInterval: 5.0}),
             ToyFreddy: new ToyFreddy(20),
             Puppet: new Puppet({aiLevel: 20}),
+            WitheredFreddy: new WitheredFreddy({aiLevel: 20}),
         });
         this.blackoutQueue = [];
         this.attackQueue = [];
@@ -81,11 +66,16 @@ export default class Game extends VisualAspect {
         this.blackout = false;
         this.blackoutElapsed = 0;
         this.currentCam = '09';
+        
+        this.blackoutFlashTime = 0;
+        this.blackoutElapsed = 0;
 
         this.musicBoxProgress = 100;
+        this.musicBoxInterval = 0.15;
         this.musicBoxElapsed = 0;
 
         this.musicBoxWinding = false;
+        this.musicBoxWindingInterval = 0.4;
         this.musicBoxWindingElapsed = 0;
 
         this.jumpscare = false;

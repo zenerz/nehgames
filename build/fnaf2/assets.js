@@ -236,6 +236,8 @@ export default class GameAssets {
                         {alias: "windup2", src: "/assets/fnaf2/audio/windup2.wav"},
                         {alias: "ventwalk1", src: "/assets/fnaf2/audio/ventwalk1.wav"},
                         {alias: "jumpscare", src: "/assets/fnaf2/audio/Xscream2.wav"},
+                        {alias: "jackinthebox", src: "/assets/fnaf2/audio/jackinthebox.wav"},
+                        {alias: "With_S2", src: "/assets/fnaf2/audio/With_S2.wav"},
                     ]
                 },
                 {

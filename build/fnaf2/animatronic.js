@@ -375,6 +375,10 @@ export class Puppet extends RoamingAnimatronic {
         if (Game.musicBoxProgress <= 0) {
             this.active = true;
         }
+        if (this.active && this.outOfBox) {
+            if (GameAssets.audio.musicbox.isPlaying) GameAssets.audio.musicbox.stop();
+            if (!GameAssets.audio.jackinthebox.isPlaying) GameAssets.audio.jackinthebox.play();
+        }
         if (this.currentLocation === 'Office') {
             this.camUpRandomInterval.updateCheck(ticker, () => {
                 if (Game.maskOn) UI.maskButton.onpointerenter();
@@ -390,5 +394,30 @@ export class Puppet extends RoamingAnimatronic {
                 }
             });
         }
+    }
+}
+
+export class WitheredFreddy extends OfficeInvaderAnimatronic {
+    constructor(options) {
+        super(options);
+        this.currentLocation = '08';
+        this.setPaths([
+            ['08', ['07']],
+            ['07', ['03']],
+            ['03', ['Office Hall Close']],
+            ['Office Hall Close', ['Office']],
+            ['Office', ['03']]
+        ]);
+    }
+
+    update(ticker) {
+        super.update(ticker);
+        if (this.getNextLocation() === 'Office') {  
+            this.camUpBlackOut(ticker);
+        }
+        if (this.currentLocation === 'Office') {
+            this.blackoutCheck(ticker);
+        }
+        
     }
 }
