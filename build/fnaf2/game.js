@@ -8,7 +8,9 @@ import UI from "./ui";
 import KeyControlls from "../common/keycontrolls";
 import MainMenu from "./mainmenu";
 import { LocationMap } from "./locationmap";
-import { ToyFreddy, ToyBonnie, ToyChica } from "./animatronic";
+import { ToyFreddy, ToyBonnie, ToyChica, Puppet } from "./animatronic";
+import Screens from "./screens";
+import Jumpscare from "./jumpscare";
 
 export default class Game extends VisualAspect {
     static async init(root) {
@@ -26,7 +28,7 @@ export default class Game extends VisualAspect {
         this.blackoutElapsed = 0;
 
         this.musicBoxProgress = 100;
-        this.musicBoxInterval = 0.33;
+        this.musicBoxInterval = 0.1;
         this.musicBoxElapsed = 0;
 
         this.musicBoxWinding = false;
@@ -38,6 +40,7 @@ export default class Game extends VisualAspect {
         await Cams.init(root, this.container);
         await Tools.init(root, this.container);
         this.container.swapChildren(Cams.container, Tools.container);
+        await Jumpscare.init(root, this.container);
         await UI.init(root, this.container);
 
         this.container.visible = false;
@@ -55,6 +58,7 @@ export default class Game extends VisualAspect {
             '07', '08', '09',
             '10', '11', '12',
             'Left Vent', 'Right Vent',
+            'Office Left Vent', 'Office Right Vent',
             'Office Hall Close', 'Office Hall Far', 'Office',
         ]);
         this.locationMap.locations.get('Office').capacity = 1;
@@ -62,6 +66,7 @@ export default class Game extends VisualAspect {
             ToyBonnie: new ToyBonnie({aiLevel: 20, movementInterval: 5.0}),
             ToyChica: new ToyChica({aiLevel: 20, movementInterval: 5.0}),
             ToyFreddy: new ToyFreddy(20),
+            Puppet: new Puppet({aiLevel: 20}),
         });
         this.blackoutQueue = [];
         this.attackQueue = [];
@@ -83,6 +88,8 @@ export default class Game extends VisualAspect {
         this.musicBoxWinding = false;
         this.musicBoxWindingElapsed = 0;
 
+        this.jumpscare = false;
+
         Office.container.x = 0;
     }
 
@@ -97,6 +104,11 @@ export default class Game extends VisualAspect {
             audio.stop();
         });
         GameAssets.audio.bgmusic.play({loop: true});
+    }
+
+    static gameOver() {
+        this.end();
+        Screens.gameOverScreen();
     }
 
     static blackoutSequence() {
@@ -114,6 +126,7 @@ export default class Game extends VisualAspect {
     }
 
     static updateLoop(ticker) {
+        if (!this.container.visible || this.jumpscare) return;
         super.updateLoop(ticker);
 
         if (this.locationMap) {

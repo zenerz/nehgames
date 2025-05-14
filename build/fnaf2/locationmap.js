@@ -30,8 +30,6 @@ class LocationMap {
         for (const ent of Object.values(this.entities)) {
 
             ent.movement(ticker);
-            ent.camUpCheck(ticker);
-            ent.blackoutCheck(ticker);
             ent.update(ticker);
 
             const plo = this.locations.get(ent.previousLocation);

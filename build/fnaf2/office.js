@@ -92,7 +92,7 @@ export default class Office extends VisualAspect {
         } else if (Game.rightVentLightOn || Game.leftVentLightOn) {
             if (Game.rightVentLightOn) {
                 LightsButtons.rightSprite.swapTexture('94.png');
-                if (Game.locationMap.locations.get('Right Vent').entities[0] instanceof ToyBonnie) {
+                if (Game.locationMap.locations.get('Office Right Vent').entities[0] instanceof ToyBonnie) {
                     this.sprite.texture = this.officeVentsSheet.textures['180.png'];
                 } else if (false) {
 
@@ -100,7 +100,7 @@ export default class Office extends VisualAspect {
             } 
             if (Game.leftVentLightOn) {
                 LightsButtons.leftSprite.swapTexture('92.png');
-                if (Game.locationMap.locations.get('Left Vent').entities[0] instanceof ToyChica) {
+                if (Game.locationMap.locations.get('Office Left Vent').entities[0] instanceof ToyChica) {
                     this.sprite.texture = this.officeVentsSheet.textures['79.png'];
                 } else if (false) {
 

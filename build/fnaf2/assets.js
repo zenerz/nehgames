@@ -197,6 +197,13 @@ export default class GameAssets {
                     ]
                 },
                 {
+                    name: "puppetjumpscare",
+                    assets: [
+                        {alias: "spritesheet", src: "/assets/fnaf2/sprites/jumpscares/puppet.png"},
+                        {alias: "spjson", src: "/assets/fnaf2/sprites/jumpscares/puppet@0.5x.png.json"},
+                    ] 
+                },
+                {
                     name: "audio",
                     assets: [
                         {alias: "bgmusic", src: "/assets/fnaf2/audio/The_Sand_Temple_Loop_G.wav"},
@@ -213,6 +220,8 @@ export default class GameAssets {
                         {alias: "stare", src: "/assets/fnaf2/audio/stare.wav"},
                         {alias: "musicbox", src: "/assets/fnaf2/audio/Music_Box_Melody_Playful.wav"},
                         {alias: "windup2", src: "/assets/fnaf2/audio/windup2.wav"},
+                        {alias: "ventwalk1", src: "/assets/fnaf2/audio/ventwalk1.wav"},
+                        {alias: "jumpscare", src: "/assets/fnaf2/audio/Xscream2.wav"},
                     ]
                 },
                 {
@@ -280,6 +289,8 @@ export default class GameAssets {
         this.musicbox = await Assets.loadBundle('musicbox', tallyProgress);
         this.insideoffice = await Assets.loadBundle('insideoffice', tallyProgress);
         this.fake3dshader = await Assets.loadBundle('fake3dshader', tallyProgress);
+
+        this.puppetjumpscare = await Assets.loadBundle('puppetjumpscare', tallyProgress);
 
         this.audio = await Assets.loadBundle('audio', tallyProgress);
         this.callaudios = await Assets.loadBundle('callaudios', tallyProgress);

@@ -2,6 +2,8 @@ import { Ticker } from "pixi.js";
 import Game from "./game";
 import UI from "./ui";
 import Screens from "./screens";
+import GameAssets from "./assets";
+import Jumpscare from "./jumpscare";
 
 export class RandomIntervalCheck {
     /** @param {{interval: Number, denominator: Number, successfullCheckCallBack: Function}} options  */
@@ -43,6 +45,10 @@ export class Animatronic {
         this.blackoutWindowElapsed = 0;
         this.currentLocation = null;
         this.previousLocation = null;
+        this.killCoolDown = 5;
+        this.killCoolDownElapsed = 0;
+        this.killCoolDownActive = false;
+        this.canKill = false;
     }
 
     /** @param {number} aiLevel */
@@ -62,19 +68,26 @@ export class Animatronic {
             this.timeElapsed = 0;
             if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
                 successfulMovementCallback();
-                
             } else console.log('fail')
         }
     }
 
     jumpscare() {
-        Game.end();
-        Screens.gameOverScreen();
+        Game.gameOver();
     }
 
     updateSprite() {}
 
-    update() {}
+    update(ticker) {
+        if (this.killCoolDownActive) {
+            this.killCoolDownElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (this.killCoolDownElapsed >= this.killCoolDown) {
+                this.killCoolDownActive = false;
+                this.canKill = true;
+                this.killCoolDownElapsed = 0;
+            }
+        }
+    }
 }
 
 export class RoamingAnimatronic extends Animatronic {
@@ -99,6 +112,12 @@ export class RoamingAnimatronic extends Animatronic {
         return this;
     }
 
+    getNextLocation() {
+        const keysArray = Array.from(this.paths.keys())
+        const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
+        return next;
+    }
+
     updateLocation() {
         const possiblePaths = this.paths.get(this.currentLocation);
         const nextLocation = possiblePaths[Math.floor(Math.random() * possiblePaths.length)];
@@ -114,9 +133,12 @@ export class RoamingAnimatronic extends Animatronic {
 
     movement(ticker) {
         super.movement(ticker, () => {
-            const keysArray = Array.from(this.paths.keys())
-            const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
-            if (next === 'Office' || this.currentLocation === 'Office') return;
+            if (
+                this.getNextLocation() === 'Office' ||
+                this.currentLocation === 'Office' || 
+                this.currentLocation === 'Office Left Vent' ||
+                this.currentLocation === 'Office Right Vent'
+            ) return;
             this.updateLocation();
         })
     }
@@ -125,12 +147,11 @@ export class RoamingAnimatronic extends Animatronic {
 export class OfficeInvaderAnimatronic extends RoamingAnimatronic {
     constructor(options) {
         super(options);
+        this.maskOnRandomInterval = new RandomIntervalCheck();
     }
 
-    camUpCheck(ticker) {
-        const keysArray = Array.from(this.paths.keys())
-        const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
-        if (next === 'Office') {
+    camUpBlackOut(ticker) {
+        if (this.getNextLocation() === 'Office') {
             this.camUpRandomInterval.updateCheck(ticker, () => {
                 if (!Game.blackout && this.updateLocation()) {
                     UI.camsButton.onpointerenter();
@@ -141,26 +162,28 @@ export class OfficeInvaderAnimatronic extends RoamingAnimatronic {
         if (this.currentLocation === 'Office') {
             this.camUpRandomInterval.updateCheck(ticker, () => {
                 UI.camsButton.onpointerenter();
-                Game.end();
+                this.jumpscare();
             }, () => { return Game.camUp });
         }
     }
 
     blackoutCheck(ticker) {
         const keysArray = Array.from(this.paths.keys())
-        const next = keysArray[keysArray.indexOf(this.currentLocation)+1];
         if (Game.blackout && this.currentLocation === keysArray[keysArray.length-1]) {
             this.blackoutElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
             this.blackoutWindowElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
             if (this.blackoutWindowElapsed >= this.blackoutReactionTime) {
                 this.blackoutWindowElapsed = Number.MIN_VALUE;
                 this.leave = Game.maskOn;
-                if (this.leave) {
-                    this.updateLocation();
-                }
                 console.log(this.leave)
             }
-        } else this.blackoutElapsed = 0;
+        } else {
+            this.blackoutElapsed = 0;
+            if (this.leave) {
+                this.leave = false;
+                this.updateLocation();
+            }
+        }
     }
 }
 
@@ -182,11 +205,23 @@ export class ToyFreddy extends OfficeInvaderAnimatronic {
             ['Office', ['09']]
         ]);
     }
+
+    update(ticker) {
+        super.update(ticker);
+        this.camUpBlackOut(ticker);
+        this.blackoutCheck(ticker);
+    }
 }
 
 export class ToyBonnie extends OfficeInvaderAnimatronic {
     constructor(options) {
         super(options)
+
+        this.maskOnRandomInterval2 = new RandomIntervalCheck({interval: 1, denominator: 3});
+
+        this.maskOnRandomInterval.denominator = 2;
+        this.maskOnRandomInterval.interval = 0.5;
+
         this.currentLocation = '09';
         this.setPaths([
             ['09', ['04']],
@@ -194,15 +229,49 @@ export class ToyBonnie extends OfficeInvaderAnimatronic {
             ['03', ['02']],
             ['02', ['06']],
             ['06', ['Right Vent']],
-            ['Right Vent', ['Office']],
-            ['Office', ['03']]
+            ['Right Vent', ['Office Right Vent']],
+            ['Office Right Vent', ['Office']],
+            ['Office', ['03']],
         ]);
+    }
+
+    update(ticker) {
+        super.update(ticker);
+        if (this.currentLocation === 'Office Right Vent') {
+            if (Game.blackout) {
+                this.maskOnRandomInterval2.updateCheck(ticker, () => {
+                    this.previousLocation = this.currentLocation;
+                    this.currentLocation = Array.from(this.paths.keys())[Array.from(this.paths.keys()).length-1];
+                    GameAssets.audio.ventwalk1.play();
+                }, () => { return Game.maskOn });
+            }
+            this.camUpRandomInterval.updateCheck(ticker, () => {
+                UI.camsButton.onpointerenter();
+                this.jumpscare();
+            }, () => { return Game.camUp });
+            this.maskOnRandomInterval.updateCheck(ticker, () => {
+                if (!Game.blackout && this.updateLocation()) {
+                    Game.blackoutSequence();
+                }
+            }, () => { return Game.maskOn });
+        }
+        this.blackoutCheck(ticker);
+    }
+
+    movement(ticker) {
+        super.movement(ticker);
     }
 }
 
 export class ToyChica extends OfficeInvaderAnimatronic {
     constructor(options) {
         super(options);
+
+        this.maskOnRandomInterval.denominator = 3;
+        this.maskOnRandomInterval.interval = 0.1;
+
+        this.camUpRandomInterval.interval = 1;
+
         this.currentLocation = '09';
         this.setPaths([
             ['09', ['07']],
@@ -210,8 +279,99 @@ export class ToyChica extends OfficeInvaderAnimatronic {
             ['04', ['Office Hall Far']],
             ['Office Hall Far', ['01']],
             ['01', ['Left Vent']],
-            ['Left Vent', ['Office']],
-            ['Office', ['04']]
-        ])
+            ['Left Vent', ['Office Left Vent']],
+            ['Office Left Vent', ['04']],
+        ]);
+    }
+
+    update(ticker) {
+        super.update(ticker);
+        if (this.currentLocation === 'Office Left Vent') {
+            this.maskOnRandomInterval.updateCheck(ticker, () => {
+                this.updateLocation();
+                GameAssets.audio.ventwalk1.play();
+            }, () => { return Game.maskOn });
+            this.camUpRandomInterval.updateCheck(ticker, () => {
+                if (!Game.blackout) {
+                    UI.camsButton.onpointerenter();
+                    this.jumpscare();
+                }
+            }, () => { return Game.camUp });
+        }
+    }
+
+    movement(ticker) {
+        super.movement(ticker);
+    }
+}
+
+export class Puppet extends RoamingAnimatronic {
+    constructor(options) {
+        super(options);
+
+        this.movementInterval = 1.0;
+        this.camUpRandomInterval.interval = 1.0;
+        this.camUpRandomInterval.denominator = 10;
+
+        this.active = false;
+        this.outOfBox = false;
+        this.outOfBoxProgress = 0;
+        this.outOfBoxElapsed = 0;
+
+        this.currentLocation = '11';
+        this.setPaths([
+            ['11', ['07']],
+            ['07', ['Office Hall Far']],
+            ['Office Hall Far', ['Office']],
+            ['Office Hall Close', ['Office']],
+            ['Office', ['11']]
+        ]);
+    }
+
+    movement(ticker) {
+        if (this.active && !this.outOfBox) {
+            this.outOfBoxElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (this.outOfBoxElapsed >= this.movementInterval) {
+                this.outOfBoxElapsed = 0;
+                if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
+                    this.outOfBoxProgress++;
+                    if (this.outOfBoxProgress >= 3) {
+                        this.outOfBoxProgress = 3;
+                        this.outOfBox = true;
+                        this.updateLocation();
+                    }
+                }
+            }
+        }
+        if (this.active && this.outOfBox && this.currentLocation !== 'Office') {
+            this.timeElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (this.timeElapsed >= this.movementInterval) {
+                this.timeElapsed = 0;
+                if (Math.floor(Math.random() * 20 + 1) <= this.aiLevel) {
+                    this.updateLocation();
+                }
+            }
+        }
+    }
+
+    update(ticker) {
+        if (Game.musicBoxProgress <= 0) {
+            this.active = true;
+        }
+        if (this.currentLocation === 'Office') {
+            this.camUpRandomInterval.updateCheck(ticker, () => {
+                if (Game.maskOn) UI.maskButton.onpointerenter();
+                if (Game.camUp) UI.camsButton.onpointerenter();
+                Game.jumpscare = true;
+                GameAssets.audio.jumpscare.play({volume: 0.5});
+                Jumpscare.puppetJumpscare.playAnimation();
+                Jumpscare.puppetJumpscare.visible = true;
+                Jumpscare.puppetJumpscare.currentAnimation.onComplete = () => { 
+                    Jumpscare.puppetJumpscare.visible = false;
+                    Jumpscare.puppetJumpscare.currentAnimation.gotoAndStop(0);
+                    this.jumpscare();
+                }
+            });
+        }
     }
 }
