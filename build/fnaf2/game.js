@@ -26,11 +26,11 @@ export default class Game extends VisualAspect {
         this.blackoutElapsed = 0;
 
         this.musicBoxProgress = 100;
-        this.musicBoxInterval = 0.2;
+        this.musicBoxInterval = 0.33;
         this.musicBoxElapsed = 0;
 
         this.musicBoxWinding = false;
-        this.musicBoxWindingInterval = 0.5;
+        this.musicBoxWindingInterval = 0.4;
         this.musicBoxWindingElapsed = 0;
 
         await OfficeMovement.init(root, this.container);
@@ -78,8 +78,10 @@ export default class Game extends VisualAspect {
         this.currentCam = '09';
 
         this.musicBoxProgress = 100;
-        this.musicBoxInterval = 0.33;
         this.musicBoxElapsed = 0;
+
+        this.musicBoxWinding = false;
+        this.musicBoxWindingElapsed = 0;
 
         Office.container.x = 0;
     }
@@ -99,6 +101,7 @@ export default class Game extends VisualAspect {
 
     static blackoutSequence() {
         this.blackout = true;
+        GameAssets.audio.stare.stop();
         if (!GameAssets.audio.stare.isPlaying)
             GameAssets.audio.stare.play();
         this.blackoutFlashTime = 0;
@@ -117,18 +120,20 @@ export default class Game extends VisualAspect {
             this.locationMap.update(ticker);
         }
 
-        this.musicBoxElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
-        if (this.musicBoxElapsed >= this.musicBoxInterval) {
-            this.musicBoxElapsed = 0;
-            if (this.musicBoxProgress > 0) {
-                this.musicBoxProgress -= 1;
+        if (!this.musicBoxWinding) {
+            this.musicBoxElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+            if (this.musicBoxElapsed >= this.musicBoxInterval) {
+                this.musicBoxElapsed = 0;
+                if (this.musicBoxProgress > 0) {
+                    this.musicBoxProgress -= 1;
+                }
             }
         }
         if (this.musicBoxWinding && this.musicBoxProgress < 100 && this.camUp) {
             this.musicBoxWindingElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
             if (this.musicBoxWindingElapsed >= this.musicBoxWindingInterval) {
                 this.musicBoxWindingElapsed = 0;
-                this.musicBoxProgress += 5;
+                this.musicBoxProgress += 11;
             }
             if (this.musicBoxProgress >= 100) {
                 this.musicBoxProgress = 100;
