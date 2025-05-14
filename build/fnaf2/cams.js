@@ -231,7 +231,5 @@ export default class Cams extends VisualAspect {
         if (Game.musicBoxProgress > 0) {
             this.musicBoxCircle.texture = Object.values(this.musicbox.textures)[Math.round(Game.musicBoxProgress/5)];
         } else this.musicBoxCircle.texture = null;
-        
-
     }
 }

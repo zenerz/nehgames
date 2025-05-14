@@ -59,6 +59,12 @@ export default class UI extends VisualAspect {
             }
         }
 
+        /** @type {Sprite} */
+        this.musicBoxWarning = this.add(new Sprite(Cams.utilssheet.textures['489.png']));
+        this.musicBoxWarning.scale.set(1.5, 1.5);
+        this.musicBoxWarning.position.set(this.camsButton.x + this.camsButton.width, this.camsButton.y);
+        this.musicBoxWarning.visible = true;
+
         Tools.freddyMask.animations.on.onComplete = () => GameAssets.audio.deepbreaths.play({loop: true});
         Tools.freddyMask.animations.off.onComplete = () => {
             Tools.freddyMask.visible = false;
@@ -82,5 +88,21 @@ export default class UI extends VisualAspect {
         this.flashlightBatteryIcon = this.add(await SpriteLoader.Sprite('flashlightbatteryicon'));
         this.flashlightBatteryIcon.scale = 1.35;
         this.flashlightBatteryIcon.position.set(this.flashlightText.x-10, this.flashlightText.y+this.flashlightText.height-5);
+
+        /** @type {Text} */
+        this.clockText = this.add(new Text({text: '12:00 AM', style : {fontFamily: GameAssets.fonts.fnaf.family, fontSize: 108, fill: 0xffffff}}));
+        this.clockText.position.set(Cams.border.x+Cams.border.width-200, Cams.border.y+10);
+        this.clockText.anchor.set(0.5, 0);
+    }
+
+    static updateLoop(ticker) {
+        super.updateLoop(ticker);
+        if (Game.musicBoxProgress <= 50) {
+            this.musicBoxWarning.visible = true;
+        } else {
+            this.musicBoxWarning.visible = false;
+        }
+
+        this.clockText.text = `${Game._HOUR === 0 ? 12 : Game._HOUR } AM`
     }
 }

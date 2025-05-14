@@ -90,6 +90,10 @@ export default class Game extends VisualAspect {
 
         this.jumpscare = false;
 
+        this._HOUR = 0;
+        this._ONE_HOUR = 15;
+        this._ONE_HOUR_elapsed = 0;
+
         Office.container.x = 0;
     }
 
@@ -132,6 +136,13 @@ export default class Game extends VisualAspect {
         if (this.locationMap) {
             this.locationMap.update(ticker);
         }
+
+        this._ONE_HOUR_elapsed += (1/ticker.maxFPS) * ticker.deltaTime;
+        if (this._ONE_HOUR_elapsed >= this._ONE_HOUR) {
+            this._ONE_HOUR_elapsed = 0;
+            this._HOUR ++;
+        }
+        if (this._HOUR >= 6) { Game.end(); return; }
 
         if (!this.musicBoxWinding) {
             this.musicBoxElapsed += (1/ticker.maxFPS) * ticker.deltaTime;
